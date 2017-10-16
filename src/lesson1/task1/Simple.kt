@@ -52,6 +52,8 @@ fun main(args: Array<String>) {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int = hours * 60 * 60 + minutes * 60 + seconds
+
+
 /**
  * Тривиальная
  *
@@ -101,6 +103,7 @@ fun thirdDigit(number : Int): Int{
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int=(hoursArrive- hoursDepart)*60+(minutesArrive- minutesDepart)
+
 /**
  * Простая
  *
@@ -109,6 +112,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double=initial * pow((1+ percent.toDouble()/100), 3.0)
+
 /**
  * Простая
  *
