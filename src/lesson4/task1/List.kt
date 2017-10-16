@@ -290,6 +290,7 @@ fun convertToString(n: Int, base: Int): String {
                 v[i]==15->element= "f"
                 v[i]==16->element= "g"
                 v[i]==17->element= "h"
+                v[i]==18->element= "i"
                 v[i]==19->element= "j"
                 v[i]==20->element= "k"
                 v[i]==21->element= "l"
@@ -365,6 +366,7 @@ fun roman(n: Int): String {
         if (k == 2) { d = b }
         if (k == 3) { d = c }
         when {
+            y==0 -> no=no
             y == 1 -> no = no +d[0]
             y == 2 -> no = no + d[0] + d[0]
             y == 3 -> no = no + d[0] +d[0] + d[0]
