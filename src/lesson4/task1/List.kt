@@ -451,6 +451,7 @@ fun russian(n: Int): String {
             k++
         }
     }
+    f.remove("")
     for (i in 0 until f.size)
     {
         if ((i==0)or(f[i]=="")){kq =  f[i]+kq}
