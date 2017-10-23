@@ -35,22 +35,19 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  */
 fun ageDescription(age: Int): String {
     if (age < 100) {
-        if ((age > 4) and (age <= 20))
-            return "$age лет"
-        else {
             when {
-                ((Math.floorMod(age, 10) > 1) and (Math.floorMod(age, 10) < 5)) -> return "$age года"
-                (Math.floorMod(age, 10) == 1) -> return "$age год"
+                ((age > 4) and (age <= 20))->return "$age лет"
+                ((age%10 > 1) and (age%10 < 5)) -> return "$age года"
+                (age%10 == 1) -> return "$age год"
                 else -> return "$age лет"
             }
-        }
     } else {
-        if ((Math.floorMod(age, 100) <= 20) and (Math.floorMod(age, 100) > 4))
+        if ((age%100 <= 20) and (age%100 > 4))
             return "$age лет"
         else {
             when {
-                ((Math.floorMod(age, 10) > 1) and (Math.floorMod(age, 10) < 5)) -> return "$age года"
-                (Math.floorMod(age, 10) == 1) -> return "$age год"
+                ((age%10 > 1) and (age%10 < 5)) -> return "$age года"
+                (age%10 == 1) -> return "$age год"
                 else -> return "$age лет"
             }
         }
@@ -68,13 +65,10 @@ fun ageDescription(age: Int): String {
                        t2: Double, v2: Double,
                        t3: Double, v3: Double): Double {
         val s = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-        if (s <= t1 * v1)
-            return s / v1
-        else {
-            if ((s > t1 * v1) and (s <= (t1 * v1 + t2 * v2)))
-                return (t1 + (s - t1 * v1) / v2)
-            else
-                return (t1 + t2 + (s - t1 * v1 - t2 * v2) / v3)
+        when {
+            (s <= t1 * v1)-> return s / v1
+            ((s > t1 * v1) and (s <= (t1 * v1 + t2 * v2)))-> return (t1 + (s - t1 * v1) / v2)
+            else->return (t1 + t2 + (s - t1 * v1 - t2 * v2) / v3)
         }
     }
 
@@ -166,10 +160,10 @@ fun ageDescription(age: Int): String {
         {
             when
             {
-                (b<c)->  -1
-                ((d>b) and (b>=c)) ->  (b-c)
-                (b>=d) ->  (d-c)
-                else -> "sai".toInt()
+                (b<c)->-1
+                ((d>b)and(b>=c))->(b-c)
+                (b>=d)->(d-c)
+                else->"sai".toInt()
             }
         }
         else
@@ -178,8 +172,8 @@ fun ageDescription(age: Int): String {
             {
                 (d<a)->-1
                 ((b>d)and(d>=a))->(d-a)
-                (d>=b)-> (b-a)
-                else -> "sai".toInt()
+                (d>=b)->(b-a)
+                else->"sai".toInt()
             }
         }
     }
