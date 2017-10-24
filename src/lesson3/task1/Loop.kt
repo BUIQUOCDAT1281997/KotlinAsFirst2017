@@ -149,6 +149,8 @@ fun maxDivisor(n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var a: Int =1
+    if ((m==1)or(n==1))
+        return true
     if (max(m,n)%min(m,n)==0)
         return false
     for (i in 2..(min(m,n))/2){
