@@ -404,26 +404,26 @@ fun russian(n: Int): String {
     var d: MutableList<String> = mutableListOf("", "сто", "двести" , "триста", "четыреста", "пятьсот","шестьсот", "семьсот", "восемьсот", "девятьсот")
     var e: MutableList<String> = a
     var f: MutableList<String> = mutableListOf()
-    var x: Int = n % 1000
+    var x: Int =n%1000
     var y: Int=0
-    var k: Int = 1
+    var k: Int =1
     while (x>0)
     {
-        if (k == 2) { e = c }
-        if (k == 3) { e = d }
-        y = x % 10
+        if (k==2) {e=c}
+        if (k==3) {e=d}
+        y=x%10
         no= e[y]
         if (((n%100)-(n%10)==10)and(k==1)){
-            no= b[(n%100)-10]
+            no=b[(n%100)-10]
             x/=10
             k=2
         }
         f.add(no)
-        x /= 10
+        x/=10
         k++
     }
     x= (n-n%1000)/1000
-    if (x != 0){
+    if (x!=0){
         a[1]="одна"
         a[2]="две"
         e=a
@@ -431,31 +431,31 @@ fun russian(n: Int): String {
         k=1
         when
         {
-            (x%10<5)and (x%10>1)and ((x%100)-(x%10)!=1)->  f.add("тысячи")
-            ((x%100)-(x%10)!=1) and (x%10==1)->  f.add("тысяча")
-            else -> f.add("тысяч")
+            (x%10<5)and(x%10>1)and((x%100)-(x%10)!=10)->f.add("тысячи")
+            ((x%100)-(x%10)!=10)and(x%10==1)->f.add("тысяча")
+            else->f.add("тысяч")
         }
         while (x>0)
         {
-            if (k == 2) { e = c }
-            if (k == 3) { e = d }
-            y = x % 10
+            if (k==2) {e=c}
+            if (k==3) {e=d}
+            y=x%10
             no=e[y]
             if (((x%100)-(x%10)==10)and(k==1)){
-                no= b[(x%100)-10]
+                no=b[(x%100)-10]
                 x/=10
                 k=2
             }
             f.add(no)
-            x /= 10
+            x/=10
             k++
         }
     }
     f.remove("")
     for (i in 0 until f.size)
     {
-        if ((i==0)or(f[i]=="")){kq =  f[i]+kq}
-        else {kq =  f[i] +" "+ kq}
+        if ((i==0)or(f[i]=="")){kq=f[i]+kq}
+        else {kq=f[i]+" "+kq}
     }
     return kq
 }
