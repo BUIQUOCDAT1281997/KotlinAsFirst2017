@@ -384,7 +384,6 @@ fun decimalFromString(str: String, base: Int): Int{
         }
     }
     return decimal(a.toList(),base)
-    
 }
 
 /**
