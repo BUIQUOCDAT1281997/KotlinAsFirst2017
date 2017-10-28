@@ -340,7 +340,52 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: str = "13c", base = 14 -> 250
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int{
+    var a:MutableList<Int> = mutableListOf()
+    for (element in str)
+    {
+        when{
+            element.toString()=="a"->a.add(10)
+            element.toString()=="b"->a.add(11)
+            element.toString()=="c"->a.add(12)
+            element.toString()=="d"->a.add(13)
+            element.toString()=="e"->a.add(14)
+            element.toString()=="f"->a.add(15)
+            element.toString()=="g"->a.add(16)
+            element.toString()=="h"->a.add(17)
+            element.toString()=="i"->a.add(18)
+            element.toString()=="j"->a.add(19)
+            element.toString()=="k"->a.add(20)
+            element.toString()=="l"->a.add(21)
+            element.toString()=="m"->a.add(22)
+            element.toString()=="n"->a.add(23)
+            element.toString()=="o"->a.add(24)
+            element.toString()=="p"->a.add(25)
+            element.toString()=="q"->a.add(26)
+            element.toString()=="r"->a.add(27)
+            element.toString()=="s"->a.add(28)
+            element.toString()=="t"->a.add(29)
+            element.toString()=="u"->a.add(30)
+            element.toString()=="v"->a.add(31)
+            element.toString()=="w"->a.add(32)
+            element.toString()=="x"->a.add(33)
+            element.toString()=="y"->a.add(34)
+            element.toString()=="z"->a.add(35)
+            element.toString()=="1"->a.add(1)
+            element.toString()=="2"->a.add(2)
+            element.toString()=="3"->a.add(3)
+            element.toString()=="4"->a.add(4)
+            element.toString()=="5"->a.add(5)
+            element.toString()=="6"->a.add(6)
+            element.toString()=="7"->a.add(7)
+            element.toString()=="8"->a.add(8)
+            element.toString()=="9"->a.add(9)
+            else->a.add(0)
+        }
+    }
+    return decimal(a.toList(),base)
+    
+}
 
 /**
  * Сложная
