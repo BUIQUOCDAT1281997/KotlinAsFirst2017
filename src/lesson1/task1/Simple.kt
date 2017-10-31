@@ -70,7 +70,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
  * Пользователь задает угол в градусах, минутах и секундах (например, 36 градусов 14 минут 35 секунд).
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
-fun angleInRadian(grad: Int, min: Int, sec: Int): Double =(grad+(min/60.0)+sec/sqr(60.0))*(PI/180.0)
+fun angleInRadian(grad: Int, min: Int, sec: Int):Double=(grad+(min/60.0)+sec/sqr(60.0))*(PI/180.0)
 
 /**
  * Тривиальная
@@ -79,8 +79,8 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double =(grad+(min/60.0)+sec/s
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
 fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double{
-    val x =x2-x1
-    val y =y2-y1
+    val x=x2-x1
+    val y=y2-y1
     val bien=sqrt(sqr(x)+sqr(y))
     return bien
 }
@@ -91,7 +91,7 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double{
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number : Int): Int=floorMod(floorDiv(floorDiv(number,10),10),10)
+fun thirdDigit(number : Int): Int=((number/10)/10)%10
 
 /**
  * Простая
@@ -100,8 +100,8 @@ fun thirdDigit(number : Int): Int=floorMod(floorDiv(floorDiv(number,10),10),10)
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int=
-        (hoursArrive-hoursDepart)*60+(minutesArrive-minutesDepart)
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int)
+        :Int=(hoursArrive-hoursDepart)*60+(minutesArrive-minutesDepart)
 
 /**
  * Простая
@@ -110,7 +110,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double=initial*pow((1+ percent.toDouble()/100),3.0)
+fun accountInThreeYears(initial: Int, percent: Int): Double=initial*pow((1+percent.toDouble()/100),3.0)
 
 /**
  * Простая
