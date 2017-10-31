@@ -33,26 +33,25 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    if (age < 100) {
-            when {
-                ((age > 4) and (age <= 20))->return "$age лет"
-                ((age%10 > 1) and (age%10 < 5)) -> return "$age года"
-                (age%10 == 1) -> return "$age год"
-                else -> return "$age лет"
+fun ageDescription(age: Int): String{
+    if (age<100){
+            when{
+                (age>4)and(age<=20)->return "$age лет"
+                (age%10>1)and(age%10<5)->return "$age года"
+                age%10==1->return "$age год"
+                else->return "$age лет"
             }
-    } else {
-        if ((age%100 <= 20) and (age%100 > 4))
-            return "$age лет"
-        else {
-            when {
-                ((age%10 > 1) and (age%10 < 5)) -> return "$age года"
-                (age%10 == 1) -> return "$age год"
-                else -> return "$age лет"
+    }
+    else {
+            when{
+                (age%100<=20)and(age%100>4)->return "$age лет"
+                (age%10>1)and(age%10<5)->return "$age года"
+                age%10==1->return "$age год"
+                else->return "$age лет"
             }
         }
     }
-}
+
 
     /**
      * Простая
@@ -63,12 +62,12 @@ fun ageDescription(age: Int): String {
      */
     fun timeForHalfWay(t1: Double, v1: Double,
                        t2: Double, v2: Double,
-                       t3: Double, v3: Double): Double {
-        val s = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-        when {
-            (s <= t1 * v1)-> return s / v1
-            ((s > t1 * v1) and (s <= (t1 * v1 + t2 * v2)))-> return (t1 + (s - t1 * v1) / v2)
-            else->return (t1 + t2 + (s - t1 * v1 - t2 * v2) / v3)
+                       t3: Double, v3: Double): Double{
+        val s=(t1*v1+t2*v2+t3*v3)/2
+        when{
+            (s<=t1*v1)->return s/v1
+            ((s>t1*v1)and(s<=(t1*v1+t2*v2)))->return t1+(s-t1*v1)/v2
+            else->return t1+t2+(s-t1*v1-t2*v2)/v3
         }
     }
 
@@ -155,21 +154,16 @@ fun ageDescription(age: Int): String {
      * Если пересечения нет, вернуть -1.
      */
     fun segmentLength(a: Int, b: Int, c: Int, d: Int):Int
-    {
-        return  if (a<=c)
-        {
-            when
-            {
+    { return  if(a<=c){
+            when{
                 (b<c)->-1
                 ((d>b)and(b>=c))->(b-c)
                 (b>=d)->(d-c)
                 else->"sai".toInt()
             }
         }
-        else
-        {
-            when
-            {
+        else{
+            when{
                 (d<a)->-1
                 ((b>d)and(d>=a))->(d-a)
                 (d>=b)->(b-a)
