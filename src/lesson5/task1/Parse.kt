@@ -91,7 +91,7 @@ fun dateStrToDigit(str: String): String {
     var y:Int=p[2].toInt()
 
        if ((x<32)and(x>0)and(y>0)){
-           return String.format("%02d.%02d.%02d",x,a,y)
+           return String.format("%02d.%02d.%d",x,a,y)
        }
        else return ""
    }
@@ -128,7 +128,7 @@ fun dateDigitToStr(digital: String): String {
             parts[1]=="12"->x="декабря"
             else -> return ""
         }
-        if ((parts[0].toInt()<32)and(parts[0].toInt()>0)and(parts[2].toInt()>0)){
+        if ((parts[0].toInt()<32)and(parts[0].toInt()>0)and(parts[2].toInt()>=0)){
             return String.format("%d %s %d",parts[0].toInt(),x,parts[2].toInt())
         }
         else return ""
@@ -201,7 +201,7 @@ fun bestLongJump(jumps: String): Int {
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int {
+fun bestHighJump(jumps: String): Int = TODO()/*{
     val a=jumps.split(" ","%").toMutableList()
     var c:Int=-1
     try {
@@ -220,7 +220,7 @@ fun bestHighJump(jumps: String): Int {
     catch (e: NumberFormatException) {
         return -1
     }
-}
+}*/
 
 /**
  * Сложная
@@ -231,7 +231,7 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int {
+fun plusMinus(expression: String): Int =TODO()/*{
     var a= expression.split(" ").toMutableList()
     var b: Int=0
     var c: Int=1
@@ -250,7 +250,7 @@ fun plusMinus(expression: String): Int {
     catch (e: IllegalArgumentException) {
         return "sai".toInt()
     }
-}
+}*/
 
 /**
  * Сложная
