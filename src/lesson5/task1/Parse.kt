@@ -254,13 +254,11 @@ fun plusMinus(expression: String): Int = TODO()/*{
  */
 fun firstDuplicateIndex(str: String): Int {
     val a = str.split(" ").toMutableList()
-    //a.remove("")
     var b: String = ""
     var c: Int = 0
     var d: Int = 0
     for (i in 0 until a.size) {
         if (b == a[i].toLowerCase()) break
-        //d+=2
         c = i
         b = a[i].toLowerCase()
     }
