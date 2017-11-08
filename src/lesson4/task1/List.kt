@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson4.task1
 
 import lesson1.task1.discriminant
@@ -108,10 +109,9 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var s:Double =0.0
-    for ( element in v)
-    {
-        s+= pow(element,2.0)
+    var s: Double = 0.0
+    for (element in v) {
+        s += pow(element, 2.0)
     }
     return sqrt(s)
 }
@@ -124,7 +124,7 @@ fun abs(v: List<Double>): Double {
 fun mean(list: List<Double>): Double {
     if (list.isEmpty())
         return 0.0
-    val s: Double=list.sum()/list.size
+    val s: Double = list.sum() / list.size
     return s
 
 }
@@ -138,7 +138,7 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    val t= mean(list)
+    val t = mean(list)
     for (i in 0 until list.size) {
         val element = list[i]
         list[i] = element - t
@@ -154,12 +154,11 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    if ((a.isEmpty())or (b.isEmpty()))
+    if ((a.isEmpty()) or (b.isEmpty()))
         return 0.0
-    var c: Double=0.0
-    for (i in 0 until a.size)
-    {
-        c+=(a[i]*b[i])
+    var c: Double = 0.0
+    for (i in 0 until a.size) {
+        c += (a[i] * b[i])
     }
     return c
 }
@@ -172,14 +171,12 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double
-{
+fun polynom(p: List<Double>, x: Double): Double {
     if (p.isEmpty())
         return 0.0
-    var s: Double=0.0
-    for (i in 0 until p.size)
-    {
-       s+=p[i] * pow(x,i.toDouble())
+    var s: Double = 0.0
+    for (i in 0 until p.size) {
+        s += p[i] * pow(x, i.toDouble())
     }
     return s
 }
@@ -197,11 +194,10 @@ fun polynom(p: List<Double>, x: Double): Double
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     if (list.isEmpty())
         return list
-    var element : Double=0.0
-    for (i in 0 until list.size)
-    {
-       list[i]+=element
-        element=list[i]
+    var element: Double = 0.0
+    for (i in 0 until list.size) {
+        list[i] += element
+        element = list[i]
     }
     return list
 }
@@ -214,20 +210,17 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var s: Int=n
-    var a: Int=2
+    var s: Int = n
+    var a: Int = 2
     val result = mutableListOf<Int>()
-        while (a<=s/2)
-        {
-            if (s%a==0)
-            {
-                result.add(a)
-                s/=a
-                a=2
-            }
-            else
-                a++
-        }
+    while (a <= s / 2) {
+        if (s % a == 0) {
+            result.add(a)
+            s /= a
+            a = 2
+        } else
+            a++
+    }
     result.add(s)
     return result
 }
@@ -238,7 +231,8 @@ fun factorize(n: Int): List<Int> {
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String =factorize(n).joinToString(separator = "*")
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
+
 /**
  * Средняя
  *
@@ -246,21 +240,21 @@ fun factorizeToString(n: Int): String =factorize(n).joinToString(separator = "*"
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int>{
+fun convert(n: Int, base: Int): List<Int> {
     val chuoi = mutableListOf<Int>()
     val list = mutableListOf<Int>()
-    var s: Int =n
-    while (s>=base)
-    {
-        chuoi.add(s%base)
-        s/=base
+    var s: Int = n
+    while (s >= base) {
+        chuoi.add(s % base)
+        s /= base
     }
     chuoi.add(s)
-    for (i in chuoi.size-1 downTo  0){
-       list.add(chuoi[i])
+    for (i in chuoi.size - 1 downTo 0) {
+        list.add(chuoi[i])
     }
     return list
 }
+
 /**
  * Сложная
  *
@@ -270,49 +264,46 @@ fun convert(n: Int, base: Int): List<Int>{
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    val v= convert(n, base)
-    var a: Int=0
+    val v = convert(n, base)
+    var a: Int = 0
     var element: String = ""
-    var chuoi:String=""
-    for (i in 0 until v.size)
-    {
-        a=v[i]
-       element ="$a"
-        if (v[i]>9)
-        {
-            when
-            {
-                v[i]==10->element= "a"
-                v[i]==11->element= "b"
-                v[i]==12->element= "c"
-                v[i]==13->element= "d"
-                v[i]==14->element= "e"
-                v[i]==15->element= "f"
-                v[i]==16->element= "g"
-                v[i]==17->element= "h"
-                v[i]==18->element= "i"
-                v[i]==19->element= "j"
-                v[i]==20->element= "k"
-                v[i]==21->element= "l"
-                v[i]==22->element= "m"
-                v[i]==23->element= "n"
-                v[i]==24->element= "o"
-                v[i]==25->element= "p"
-                v[i]==26->element= "q"
-                v[i]==27->element= "r"
-                v[i]==28->element= "s"
-                v[i]==29->element= "t"
-                v[i]==30->element= "u"
-                v[i]==31->element= "v"
-                v[i]==32->element= "w"
-                v[i]==33->element= "x"
-                v[i]==34->element= "y"
-                else ->element= "z"
+    var chuoi: String = ""
+    for (i in 0 until v.size) {
+        a = v[i]
+        element = "$a"
+        if (v[i] > 9) {
+            when {
+                v[i] == 10 -> element = "a"
+                v[i] == 11 -> element = "b"
+                v[i] == 12 -> element = "c"
+                v[i] == 13 -> element = "d"
+                v[i] == 14 -> element = "e"
+                v[i] == 15 -> element = "f"
+                v[i] == 16 -> element = "g"
+                v[i] == 17 -> element = "h"
+                v[i] == 18 -> element = "i"
+                v[i] == 19 -> element = "j"
+                v[i] == 20 -> element = "k"
+                v[i] == 21 -> element = "l"
+                v[i] == 22 -> element = "m"
+                v[i] == 23 -> element = "n"
+                v[i] == 24 -> element = "o"
+                v[i] == 25 -> element = "p"
+                v[i] == 26 -> element = "q"
+                v[i] == 27 -> element = "r"
+                v[i] == 28 -> element = "s"
+                v[i] == 29 -> element = "t"
+                v[i] == 30 -> element = "u"
+                v[i] == 31 -> element = "v"
+                v[i] == 32 -> element = "w"
+                v[i] == 33 -> element = "x"
+                v[i] == 34 -> element = "y"
+                else -> element = "z"
             }
         }
-        chuoi= chuoi + element
+        chuoi = chuoi + element
     }
-return chuoi
+    return chuoi
 }
 
 /**
@@ -323,10 +314,9 @@ return chuoi
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    var a: Int =0
-    for (i in 0 until digits.size)
-    {
-        a=a*base+digits[i]
+    var a: Int = 0
+    for (i in 0 until digits.size) {
+        a = a * base + digits[i]
     }
     return a
 }
@@ -340,50 +330,49 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: str = "13c", base = 14 -> 250
  */
-fun decimalFromString(str: String, base: Int): Int{
-    var a:MutableList<Int> = mutableListOf()
-    for (element in str)
-    {
-        when{
-            element.toString()=="a"->a.add(10)
-            element.toString()=="b"->a.add(11)
-            element.toString()=="c"->a.add(12)
-            element.toString()=="d"->a.add(13)
-            element.toString()=="e"->a.add(14)
-            element.toString()=="f"->a.add(15)
-            element.toString()=="g"->a.add(16)
-            element.toString()=="h"->a.add(17)
-            element.toString()=="i"->a.add(18)
-            element.toString()=="j"->a.add(19)
-            element.toString()=="k"->a.add(20)
-            element.toString()=="l"->a.add(21)
-            element.toString()=="m"->a.add(22)
-            element.toString()=="n"->a.add(23)
-            element.toString()=="o"->a.add(24)
-            element.toString()=="p"->a.add(25)
-            element.toString()=="q"->a.add(26)
-            element.toString()=="r"->a.add(27)
-            element.toString()=="s"->a.add(28)
-            element.toString()=="t"->a.add(29)
-            element.toString()=="u"->a.add(30)
-            element.toString()=="v"->a.add(31)
-            element.toString()=="w"->a.add(32)
-            element.toString()=="x"->a.add(33)
-            element.toString()=="y"->a.add(34)
-            element.toString()=="z"->a.add(35)
-            element.toString()=="1"->a.add(1)
-            element.toString()=="2"->a.add(2)
-            element.toString()=="3"->a.add(3)
-            element.toString()=="4"->a.add(4)
-            element.toString()=="5"->a.add(5)
-            element.toString()=="6"->a.add(6)
-            element.toString()=="7"->a.add(7)
-            element.toString()=="8"->a.add(8)
-            element.toString()=="9"->a.add(9)
-            else->a.add(0)
+fun decimalFromString(str: String, base: Int): Int {
+    var a: MutableList<Int> = mutableListOf()
+    for (element in str) {
+        when {
+            element.toString() == "a" -> a.add(10)
+            element.toString() == "b" -> a.add(11)
+            element.toString() == "c" -> a.add(12)
+            element.toString() == "d" -> a.add(13)
+            element.toString() == "e" -> a.add(14)
+            element.toString() == "f" -> a.add(15)
+            element.toString() == "g" -> a.add(16)
+            element.toString() == "h" -> a.add(17)
+            element.toString() == "i" -> a.add(18)
+            element.toString() == "j" -> a.add(19)
+            element.toString() == "k" -> a.add(20)
+            element.toString() == "l" -> a.add(21)
+            element.toString() == "m" -> a.add(22)
+            element.toString() == "n" -> a.add(23)
+            element.toString() == "o" -> a.add(24)
+            element.toString() == "p" -> a.add(25)
+            element.toString() == "q" -> a.add(26)
+            element.toString() == "r" -> a.add(27)
+            element.toString() == "s" -> a.add(28)
+            element.toString() == "t" -> a.add(29)
+            element.toString() == "u" -> a.add(30)
+            element.toString() == "v" -> a.add(31)
+            element.toString() == "w" -> a.add(32)
+            element.toString() == "x" -> a.add(33)
+            element.toString() == "y" -> a.add(34)
+            element.toString() == "z" -> a.add(35)
+            element.toString() == "1" -> a.add(1)
+            element.toString() == "2" -> a.add(2)
+            element.toString() == "3" -> a.add(3)
+            element.toString() == "4" -> a.add(4)
+            element.toString() == "5" -> a.add(5)
+            element.toString() == "6" -> a.add(6)
+            element.toString() == "7" -> a.add(7)
+            element.toString() == "8" -> a.add(8)
+            element.toString() == "9" -> a.add(9)
+            else -> a.add(0)
         }
     }
-    return decimal(a.toList(),base)
+    return decimal(a.toList(), base)
 }
 
 /**
@@ -397,41 +386,46 @@ fun decimalFromString(str: String, base: Int): Int{
 fun roman(n: Int): String {
     var no: String = ""
     var kq: String = ""
-    var a: MutableList<String> = mutableListOf("I", "V" , "X")
+    var a: MutableList<String> = mutableListOf("I", "V", "X")
     var b: MutableList<String> = mutableListOf("X", "L", "C")
     var c: MutableList<String> = mutableListOf("C", "D", "M")
     var d: MutableList<String> = a
-    var y: Int=0
+    var y: Int = 0
     var k: Int = 1
     var x: Int = n % 1000
     var i: Int = (n - x) / 1000
     while (x > 0) {
         y = x % 10
-        if (k == 2) { d = b }
-        if (k == 3) { d = c }
+        if (k == 2) {
+            d = b
+        }
+        if (k == 3) {
+            d = c
+        }
         when {
-            y==0 -> no=no
-            y == 1 -> no = no +d[0]
+            y == 0 -> no = no
+            y == 1 -> no = no + d[0]
             y == 2 -> no = no + d[0] + d[0]
-            y == 3 -> no = no + d[0] +d[0] + d[0]
+            y == 3 -> no = no + d[0] + d[0] + d[0]
             y == 4 -> no = no + d[0] + d[1]
             y == 5 -> no = no + d[1]
-            y == 6 -> no = no +d[1] + d[0]
-            y == 7 -> no = no +d[1] + d[0] + d[0]
-            y == 8 -> no = no +d[1] + d[0] +d[0]+ d[0]
-            else -> no = no + d[0] +  d[2]
+            y == 6 -> no = no + d[1] + d[0]
+            y == 7 -> no = no + d[1] + d[0] + d[0]
+            y == 8 -> no = no + d[1] + d[0] + d[0] + d[0]
+            else -> no = no + d[0] + d[2]
         }
         kq = no + kq
         x /= 10
         k++
-        no=""
+        no = ""
     }
     if (i != 0) {
         for (g in 1..i)
-            kq = "M"+ kq
+            kq = "M" + kq
     }
     return kq
 }
+
 /**
  * Очень сложная
  *
@@ -442,63 +436,70 @@ fun roman(n: Int): String {
 fun russian(n: Int): String {
     var no: String = ""
     var kq: String = ""
-    var a: MutableList<String> = mutableListOf("", "один", "два" , "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-    var b: MutableList<String> = mutableListOf( "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+    var a: MutableList<String> = mutableListOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    var b: MutableList<String> = mutableListOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
     var c: MutableList<String> = mutableListOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
-    var d: MutableList<String> = mutableListOf("", "сто", "двести" , "триста", "четыреста", "пятьсот","шестьсот", "семьсот", "восемьсот", "девятьсот")
+    var d: MutableList<String> = mutableListOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
     var e: MutableList<String> = a
     var f: MutableList<String> = mutableListOf()
-    var x: Int =n%1000
-    var y: Int=0
-    var k: Int =1
-    while (x>0)
-    {
-        if (k==2) {e=c}
-        if (k==3) {e=d}
-        y=x%10
-        no= e[y]
-        if (((n%100)-(n%10)==10)and(k==1)){
-            no=b[(n%100)-10]
-            x/=10
-            k=2
+    var x: Int = n % 1000
+    var y: Int = 0
+    var k: Int = 1
+    while (x > 0) {
+        if (k == 2) {
+            e = c
+        }
+        if (k == 3) {
+            e = d
+        }
+        y = x % 10
+        no = e[y]
+        if (((n % 100) - (n % 10) == 10) and (k == 1)) {
+            no = b[(n % 100) - 10]
+            x /= 10
+            k = 2
         }
         f.add(no)
-        x/=10
+        x /= 10
         k++
     }
-    x= (n-n%1000)/1000
-    if (x!=0){
-        a[1]="одна"
-        a[2]="две"
-        e=a
-        no=""
-        k=1
-        when
-        {
-            (x%10<5)and(x%10>1)and((x%100)-(x%10)!=10)->f.add("тысячи")
-            ((x%100)-(x%10)!=10)and(x%10==1)->f.add("тысяча")
-            else->f.add("тысяч")
+    x = (n - n % 1000) / 1000
+    if (x != 0) {
+        a[1] = "одна"
+        a[2] = "две"
+        e = a
+        no = ""
+        k = 1
+        when {
+            (x % 10 < 5) and (x % 10 > 1) and ((x % 100) - (x % 10) != 10) -> f.add("тысячи")
+            ((x % 100) - (x % 10) != 10) and (x % 10 == 1) -> f.add("тысяча")
+            else -> f.add("тысяч")
         }
-        while (x>0)
-        {
-            if (k==2) {e=c}
-            if (k==3) {e=d}
-            y=x%10
-            no=e[y]
-            if (((x%100)-(x%10)==10)and(k==1)){
-                no=b[(x%100)-10]
-                x/=10
-                k=2
+        while (x > 0) {
+            if (k == 2) {
+                e = c
+            }
+            if (k == 3) {
+                e = d
+            }
+            y = x % 10
+            no = e[y]
+            if (((x % 100) - (x % 10) == 10) and (k == 1)) {
+                no = b[(x % 100) - 10]
+                x /= 10
+                k = 2
             }
             f.add(no)
-            x/=10
+            x /= 10
             k++
         }
     }
-    for (i in 0 until f.size)
-    {
-        if ((i==0)or(f[i]=="")){kq=f[i]+kq}
-        else {kq=f[i]+" "+kq}
+    for (i in 0 until f.size) {
+        if ((i == 0) or (f[i] == "")) {
+            kq = f[i] + kq
+        } else {
+            kq = f[i] + " " + kq
+        }
     }
     return kq.trim()
 }
