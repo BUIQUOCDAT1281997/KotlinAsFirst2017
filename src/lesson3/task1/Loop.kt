@@ -1,5 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
+
 import lesson1.task1.sqr
 import lesson2.task1.sqr
 import java.lang.Math.*
@@ -37,7 +39,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -63,17 +65,18 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Найти количество цифр в заданном числе n.
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
-fun digitNumber(n: Int): Int {if (n==0)
-    return 1
+fun digitNumber(n: Int): Int {
+    if (n == 0)
+        return 1
     else {
-    var a = 0
-    var number = abs(n)
-    while (number > 0) {
-        a++
-        number /= 10
+        var a = 0
+        var number = abs(n)
+        while (number > 0) {
+            a++
+            number /= 10
+        }
+        return a
     }
-    return a
-}
 }
 
 /**
@@ -83,18 +86,16 @@ fun digitNumber(n: Int): Int {if (n==0)
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var a=1
-    var b=1
-    var f=1
-    if ( n<3)
+    var a = 1
+    var b = 1
+    var f = 1
+    if (n < 3)
         return 1
-    else
-    {
-        for (i in 3..n)
-        {
-            a=f
-            f=a+b
-            b=a
+    else {
+        for (i in 3..n) {
+            a = f
+            f = a + b
+            b = a
         }
         return f
     }
@@ -107,13 +108,14 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var a: Int=1
-   for  ( i in min(m,n) downTo 1){
-       a=i
-       if ((m%a==0)and(n%a==0))break
-   }
-    return (m*n/a)
+    var a: Int = 1
+    for (i in min(m, n) downTo 1) {
+        a = i
+        if ((m % a == 0) and (n % a == 0)) break
+    }
+    return (m * n / a)
 }
+
 /**
  * Простая
  *
@@ -122,11 +124,12 @@ fun lcm(m: Int, n: Int): Int {
 fun minDivisor(n: Int): Int {
     var a: Int = 1
     for (i in 2..n) {
-        a=i
-        if (n % i == 0)  break
+        a = i
+        if (n % i == 0) break
     }
     return a
 }
+
 /**
  * Простая
  *
@@ -134,12 +137,13 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var a: Int = 1
-    for (i in (n/2.toInt()) downTo 1) {
-        a=i
-        if (n % i == 0)  break
+    for (i in (n / 2.toInt()) downTo 1) {
+        a = i
+        if (n % i == 0) break
     }
     return a
 }
+
 /**
  * Простая
  *
@@ -148,18 +152,19 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var a: Int =1
-    if ((m==1)or(n==1))
+    var a: Int = 1
+    if ((m == 1) or (n == 1))
         return true
-    if (max(m,n)%min(m,n)==0)
+    if (max(m, n) % min(m, n) == 0)
         return false
-    for (i in 2..(min(m,n))/2){
-        if ((m % i==0)and(n % i==0))
-        break
+    for (i in 2..(min(m, n)) / 2) {
+        if ((m % i == 0) and (n % i == 0))
+            break
         a += 1
     }
-    return a==min(m,n)/2
+    return a == min(m, n) / 2
 }
+
 /**
  * Простая
  *
@@ -168,7 +173,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    if((sqrt(n.toDouble()).toInt()-sqrt(m.toDouble()).toInt()>=1)or(sqrt(n.toDouble())==sqrt(m.toDouble())))
+    if ((sqrt(n.toDouble()).toInt() - sqrt(m.toDouble()).toInt() >= 1) or (sqrt(n.toDouble()) == sqrt(m.toDouble())))
         return true
     else
         return false
@@ -182,15 +187,15 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun sin(x: Double, eps: Double): Double {
-    var n:Int=1
-    var s:Double=0.0
-    var a:Double=1.0
-    var b:Double=x%(2*Math.PI)
-   while (abs(a)>eps){
-       a=pow(-1.0,n.toDouble()+1)*pow(b,2*n.toDouble()-1)/factorial(2*n-1)
-       s+=a
-       n++
-   }
+    var n: Int = 1
+    var s: Double = 0.0
+    var a: Double = 1.0
+    var b: Double = x % (2 * Math.PI)
+    while (abs(a) > eps) {
+        a = pow(-1.0, n.toDouble() + 1) * pow(b, 2 * n.toDouble() - 1) / factorial(2 * n - 1)
+        s += a
+        n++
+    }
     return s
 }
 
@@ -202,12 +207,11 @@ fun sin(x: Double, eps: Double): Double {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun cos(x: Double, eps: Double): Double {
-    var n: Double=0.0
-    var c: Double=0.0
-    var b:Double=x%(2*Math.PI)
-    while (abs(pow(-1.0,n)*pow(b,2*n)/(factorial((2*n.toInt()))))>eps)
-    {
-        c+=(pow(-1.0,n)*pow(b,2*n)/(factorial((2*n.toInt()))))
+    var n: Double = 0.0
+    var c: Double = 0.0
+    var b: Double = x % (2 * Math.PI)
+    while (abs(pow(-1.0, n) * pow(b, 2 * n) / (factorial((2 * n.toInt())))) > eps) {
+        c += (pow(-1.0, n) * pow(b, 2 * n) / (factorial((2 * n.toInt()))))
         n++
     }
     return c
@@ -219,12 +223,12 @@ fun cos(x: Double, eps: Double): Double {
  * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
  * Не использовать строки при решении задачи.
  */
-fun revert(n: Int): Int{
-    var x: Int=n
-    var y: Int=0
-    var a: Int=0
-    var b: Int=n
-    if (n<10)
+fun revert(n: Int): Int {
+    var x: Int = n
+    var y: Int = 0
+    var a: Int = 0
+    var b: Int = n
+    if (n < 10)
         return n
     else {
         while (x >= 10) {
@@ -232,8 +236,8 @@ fun revert(n: Int): Int{
             y++
         }
         for (i in y downTo 0) {
-            a+= ((b % 10) * Math.pow(10.0, i.toDouble()).toInt())
-            b/= 10
+            a += ((b % 10) * Math.pow(10.0, i.toDouble()).toInt())
+            b /= 10
         }
         return a
     }
@@ -247,7 +251,7 @@ fun revert(n: Int): Int{
  * 15751 -- палиндром, 3653 -- нет.
  */
 fun isPalindrome(n: Int): Boolean {
-    if ( revert(n)-n==0)
+    if (revert(n) - n == 0)
         return true
     else
         return false
@@ -260,15 +264,15 @@ fun isPalindrome(n: Int): Boolean {
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var a:Int=0
-    var x: Int=n
-    if (n<10)
+    var a: Int = 0
+    var x: Int = n
+    if (n < 10)
         return false
     while (x >= 10) {
-            a = x % 10
-            x /= 10
-            if (x % 10!= a) break
-        }
+        a = x % 10
+        x /= 10
+        if (x % 10 != a) break
+    }
     return x != a
 }
 
@@ -280,27 +284,24 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var x: Int=0
-    var y:Int=0
-    var s: Int=1
-    var r:Int=1
-    while (y<n)
-    {
+    var x: Int = 0
+    var y: Int = 0
+    var s: Int = 1
+    var r: Int = 1
+    while (y < n) {
         x++
-        s=x*x
-        while (s>0)
-        {
-            s/=10
+        s = x * x
+        while (s > 0) {
+            s /= 10
             y++
         }
     }
-    if (y==n)
-        return ((x*x)%10).toInt()
-    r=x*x
-    for (i in 1..(y-n+1))
-    {
-        x=r%10
-        r/=10
+    if (y == n)
+        return ((x * x) % 10).toInt()
+    r = x * x
+    for (i in 1..(y - n + 1)) {
+        x = r % 10
+        r /= 10
     }
     return x
 }
@@ -313,32 +314,28 @@ fun squareSequenceDigit(n: Int): Int {
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var x1:Int=1
-    var x2:Int=1
-    var x3:Int=1
-    var a:Int=2
-    var b:Int=1
-    if (n<=2)
+    var x1: Int = 1
+    var x2: Int = 1
+    var x3: Int = 1
+    var a: Int = 2
+    var b: Int = 1
+    if (n <= 2)
         return 1
-    while (a<n)
-    {
-        x1=x2
-        x2=x3
-        x3=x1+x2
-        b=x3
-        while (b>0)
-        {
-            b/=10
+    while (a < n) {
+        x1 = x2
+        x2 = x3
+        x3 = x1 + x2
+        b = x3
+        while (b > 0) {
+            b /= 10
             a++
         }
     }
-    if (a==n)
-        return (x3%10)
-    for (i in 1..(a-n+1))
-    {
-        b=x3%10
-        x3/=10
+    if (a == n)
+        return (x3 % 10)
+    for (i in 1..(a - n + 1)) {
+        b = x3 % 10
+        x3 /= 10
     }
     return b
 }
-
