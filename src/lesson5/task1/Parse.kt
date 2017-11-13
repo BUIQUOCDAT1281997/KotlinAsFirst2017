@@ -88,7 +88,7 @@ fun dateStrToDigit(str: String): String {
         var x: Int = p[0].toInt()
         var y: Int = p[2].toInt()
 
-        if ((x < 32) and (x > 0) and (y > 0)) {
+        if ((x < 32) and (x > 0) and (y >= 0)) {
             return String.format("%02d.%02d.%d", x, a, y)
         } else return ""
     } catch (e: NumberFormatException) {
@@ -192,26 +192,25 @@ fun bestLongJump(jumps: String): Int {
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()/*{
-    val a=jumps.split(" ","%").toMutableList()
-    var c:Int=-1
+fun bestHighJump(jumps: String): Int {
+    val a = jumps.split(" ", "%").toMutableList()
+    var c: Int = -1
     try {
         for (i in a.size - 1 downTo 0) {
             if (a[i] == "+") break
             a.remove(a[i])
         }
-        for (part in a)
-        {
-            if ((part!="")and(part!="+"))
-            {if(c<part.toInt())
-            c= part.toInt()}
+        for (part in a) {
+            if ((part != "") and (part != "+")) {
+                if (c < part.toInt())
+                    c = part.toInt()
+            }
         }
-       return c
-    }
-    catch (e: NumberFormatException) {
+        return c
+    } catch (e: NumberFormatException) {
         return -1
     }
-}*/
+}
 
 /**
  * Сложная
@@ -222,26 +221,23 @@ fun bestHighJump(jumps: String): Int = TODO()/*{
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()/*{
-    var a= expression.split(" ").toMutableList()
-    var b: Int=0
-    var c: Int=1
+fun plusMinus(expression: String): Int {
+    var a = expression.split(" ").toMutableList()
+    var b: Int = 0
+    var c: Int = 1
     try {
-        for (part in a)
-        {
-           when
-           {
-               part=="+"->c=1
-               part=="-"->c=-1
-               else->b+= c*part.toInt()
-           }
+        for (part in a) {
+            when {
+                part == "+" -> c = 1
+                part == "-" -> c = -1
+                else -> b += c * part.toInt()
+            }
         }
         return b
-    }
-    catch (e: IllegalArgumentException) {
+    } catch (e: IllegalArgumentException) {
         return "sai".toInt()
     }
-}*/
+}
 
 /**
  * Сложная
@@ -269,7 +265,6 @@ fun firstDuplicateIndex(str: String): Int {
             d += a[i].length
         }
         return d + c
-
     }
 }
 
@@ -284,7 +279,23 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть положительными
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    val a = description.split(" ", "; ").toMutableList()
+    var b: Double = 0.0
+    var c: Int = 0
+    var d: String = ""
+    try {
+        for (i in 1..a.size - 1 step 2) {
+            if (a[i].toDouble() > b) {
+                b = a[i].toDouble()
+                c = i - 1
+            }
+        }
+        return a[c]
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Сложная
@@ -297,7 +308,30 @@ fun mostExpensive(description: String): String = TODO()
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    var list: MutableList<Int> = mutableListOf()
+    var a: Int = 0
+    for (part in roman) {
+        when {
+            part.toString() == "I" -> list.add(1)
+            part.toString() == "V" -> list.add(5)
+            part.toString() == "X" -> list.add(10)
+            part.toString() == "L" -> list.add(50)
+            part.toString() == "C" -> list.add(100)
+            part.toString() == "D" -> list.add(500)
+            part.toString() == "M" -> list.add(1000)
+            else -> return -1
+        }
+    }
+    for (i in 0 until list.size) {
+        if (i == 0) a = list[0]
+        else {
+            if (list[i] <= list[i - 1]) a += list[i]
+            else a = a + list[i] - 2 * list[i - 1]
+        }
+    }
+    return a
+}
 
 /**
  * Очень сложная
