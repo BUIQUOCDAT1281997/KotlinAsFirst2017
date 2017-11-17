@@ -11,8 +11,7 @@ import java.lang.Math.*
  * Лежит ли точка (x, y) внутри окружности с центром в (x0, y0) и радиусом r?
  */
 fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double): Boolean {
-    if (sqr(x - x0) + sqr(y - y0) <= sqr(r)) return true
-    return false
+    return (pow((x - x0), 2.0) + pow((y - y0), 2.0) <= pow(r, 2.0))
 }
 
 /**
@@ -26,8 +25,7 @@ fun isNumberHappy(number: Int): Boolean {
     val b = (number / 100) % 10
     val c = (number - (a * 1000 + b * 100)) / 10
     val d = number - (a * 1000 + b * 100 + c * 10)
-    if ((a + b) == (c + d)) return true
-    return false
+    return ((a + b) == (c + d))
 }
 
 /**
@@ -38,10 +36,7 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    if ((x1 == x2) or (y1 == y2) or ((abs(x1 - x2) == abs(y1 - y2))))
-        return true
-    else
-        return false
+    return ((x1 == x2) || (y1 == y2) || ((abs(x1 - x2) == abs(y1 - y2))))
 }
 
 /**
@@ -54,9 +49,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
     val d = sqrt(sqr((x1 - x2)) + sqr((y1 - y2)))
-    if (r2 >= (d + r1))
-        return true
-    return false
+    return (r2 >= (d + r1))
 }
 
 /**

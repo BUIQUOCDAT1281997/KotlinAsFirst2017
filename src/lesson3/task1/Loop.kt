@@ -108,12 +108,15 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var a: Int = 1
-    for (i in min(m, n) downTo 1) {
-        a = i
-        if ((m % a == 0) and (n % a == 0)) break
+    var r = 0
+    var x = maxOf(m, n)
+    var y = minOf(m, n)
+    while (y != 0) {
+        r = x % y
+        x = y
+        y = r
     }
-    return (m * n / a)
+    return (m * n) / x
 }
 
 /**
@@ -152,17 +155,15 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var a: Int = 1
-    if ((m == 1) or (n == 1))
-        return true
-    if (max(m, n) % min(m, n) == 0)
-        return false
-    for (i in 2..(min(m, n)) / 2) {
-        if ((m % i == 0) and (n % i == 0))
-            break
-        a += 1
+    var r = 0
+    var x = maxOf(m, n)
+    var y = minOf(m, n)
+    while (y != 0) {
+        r = x % y
+        x = y
+        y = r
     }
-    return a == min(m, n) / 2
+    return (x == 1)
 }
 
 /**
@@ -172,12 +173,14 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean {
-    if ((sqrt(n.toDouble()).toInt() - sqrt(m.toDouble()).toInt() >= 1) or (sqrt(n.toDouble()) == sqrt(m.toDouble())))
-        return true
-    else
-        return false
+fun squareBetweenExists(m: Int, n: Int): Boolean = when {
+    sqrt(n.toDouble()).toInt() / sqrt(n.toDouble()) == 1.0 -> true
+    sqrt(m.toDouble()).toInt() / sqrt(m.toDouble()) == 1.0 -> true
+    sqrt(n.toDouble()).toInt() - sqrt(m.toDouble()).toInt() >= 1 -> true
+    n == m -> true
+    else -> false
 }
+
 
 /**
  * Средняя
@@ -187,10 +190,10 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun sin(x: Double, eps: Double): Double {
-    var n: Int = 1
-    var s: Double = 0.0
-    var a: Double = 1.0
-    var b: Double = x % (2 * Math.PI)
+    var n = 1
+    var s = 0.0
+    var a = 1.0
+    var b = x % (2 * Math.PI)
     while (abs(a) > eps) {
         a = pow(-1.0, n.toDouble() + 1) * pow(b, 2 * n.toDouble() - 1) / factorial(2 * n - 1)
         s += a
@@ -251,10 +254,7 @@ fun revert(n: Int): Int {
  * 15751 -- палиндром, 3653 -- нет.
  */
 fun isPalindrome(n: Int): Boolean {
-    if (revert(n) - n == 0)
-        return true
-    else
-        return false
+    return (revert(n) - n == 0)
 }
 
 /**
@@ -297,7 +297,7 @@ fun squareSequenceDigit(n: Int): Int {
         }
     }
     if (y == n)
-        return ((x * x) % 10).toInt()
+        return ((x * x) % 10)
     r = x * x
     for (i in 1..(y - n + 1)) {
         x = r % 10

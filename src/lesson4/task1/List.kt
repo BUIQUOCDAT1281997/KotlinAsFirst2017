@@ -124,9 +124,7 @@ fun abs(v: List<Double>): Double {
 fun mean(list: List<Double>): Double {
     if (list.isEmpty())
         return 0.0
-    val s: Double = list.sum() / list.size
-    return s
-
+    return list.sum() / list.size
 }
 
 /**
@@ -265,41 +263,14 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     val v = convert(n, base)
-    var a: Int = 0
+    var word: String = "abcdefghijklmnopqrstuvwxyz"
     var element: String = ""
     var chuoi: String = ""
     for (i in 0 until v.size) {
-        a = v[i]
-        element = "$a"
-        if (v[i] > 9) {
-            when {
-                v[i] == 10 -> element = "a"
-                v[i] == 11 -> element = "b"
-                v[i] == 12 -> element = "c"
-                v[i] == 13 -> element = "d"
-                v[i] == 14 -> element = "e"
-                v[i] == 15 -> element = "f"
-                v[i] == 16 -> element = "g"
-                v[i] == 17 -> element = "h"
-                v[i] == 18 -> element = "i"
-                v[i] == 19 -> element = "j"
-                v[i] == 20 -> element = "k"
-                v[i] == 21 -> element = "l"
-                v[i] == 22 -> element = "m"
-                v[i] == 23 -> element = "n"
-                v[i] == 24 -> element = "o"
-                v[i] == 25 -> element = "p"
-                v[i] == 26 -> element = "q"
-                v[i] == 27 -> element = "r"
-                v[i] == 28 -> element = "s"
-                v[i] == 29 -> element = "t"
-                v[i] == 30 -> element = "u"
-                v[i] == 31 -> element = "v"
-                v[i] == 32 -> element = "w"
-                v[i] == 33 -> element = "x"
-                v[i] == 34 -> element = "y"
-                else -> element = "z"
-            }
+        when {
+            v[i] <= 9 -> element = v[i].toString()
+            v[i] > 9 && v[i] <= 35 -> element = word[v[i] - 10].toString()
+            else -> element = "z"
         }
         chuoi = chuoi + element
     }
@@ -331,48 +302,12 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    var a: MutableList<Int> = mutableListOf()
+    var list: MutableList<Int> = mutableListOf()
+    var word = "0123456789abcdefghijklmnopqrstuvwxyz"
     for (element in str) {
-        when {
-            element.toString() == "a" -> a.add(10)
-            element.toString() == "b" -> a.add(11)
-            element.toString() == "c" -> a.add(12)
-            element.toString() == "d" -> a.add(13)
-            element.toString() == "e" -> a.add(14)
-            element.toString() == "f" -> a.add(15)
-            element.toString() == "g" -> a.add(16)
-            element.toString() == "h" -> a.add(17)
-            element.toString() == "i" -> a.add(18)
-            element.toString() == "j" -> a.add(19)
-            element.toString() == "k" -> a.add(20)
-            element.toString() == "l" -> a.add(21)
-            element.toString() == "m" -> a.add(22)
-            element.toString() == "n" -> a.add(23)
-            element.toString() == "o" -> a.add(24)
-            element.toString() == "p" -> a.add(25)
-            element.toString() == "q" -> a.add(26)
-            element.toString() == "r" -> a.add(27)
-            element.toString() == "s" -> a.add(28)
-            element.toString() == "t" -> a.add(29)
-            element.toString() == "u" -> a.add(30)
-            element.toString() == "v" -> a.add(31)
-            element.toString() == "w" -> a.add(32)
-            element.toString() == "x" -> a.add(33)
-            element.toString() == "y" -> a.add(34)
-            element.toString() == "z" -> a.add(35)
-            element.toString() == "1" -> a.add(1)
-            element.toString() == "2" -> a.add(2)
-            element.toString() == "3" -> a.add(3)
-            element.toString() == "4" -> a.add(4)
-            element.toString() == "5" -> a.add(5)
-            element.toString() == "6" -> a.add(6)
-            element.toString() == "7" -> a.add(7)
-            element.toString() == "8" -> a.add(8)
-            element.toString() == "9" -> a.add(9)
-            else -> a.add(0)
-        }
+        list.add(word.indexOf(element))
     }
-    return decimal(a.toList(), base)
+    return decimal(list.toList(), base)
 }
 
 /**
@@ -384,46 +319,46 @@ fun decimalFromString(str: String, base: Int): Int {
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var no: String = ""
-    var kq: String = ""
-    var a: MutableList<String> = mutableListOf("I", "V", "X")
-    var b: MutableList<String> = mutableListOf("X", "L", "C")
-    var c: MutableList<String> = mutableListOf("C", "D", "M")
-    var d: MutableList<String> = a
-    var y: Int = 0
-    var k: Int = 1
+    var str1: String = ""
+    var str2: String = ""
+    var unit: MutableList<String> = mutableListOf("I", "V", "X")
+    var dozens: MutableList<String> = mutableListOf("X", "L", "C")
+    var hundreds: MutableList<String> = mutableListOf("C", "D", "M")
+    var bien: MutableList<String> = unit
+    var vitri: Int = 0
+    var cap: Int = 1
     var x: Int = n % 1000
     var i: Int = (n - x) / 1000
     while (x > 0) {
-        y = x % 10
-        if (k == 2) {
-            d = b
+        vitri = x % 10
+        if (cap == 2) {
+            bien = dozens
         }
-        if (k == 3) {
-            d = c
+        if (cap == 3) {
+            bien = hundreds
         }
         when {
-            y == 0 -> no = no
-            y == 1 -> no = no + d[0]
-            y == 2 -> no = no + d[0] + d[0]
-            y == 3 -> no = no + d[0] + d[0] + d[0]
-            y == 4 -> no = no + d[0] + d[1]
-            y == 5 -> no = no + d[1]
-            y == 6 -> no = no + d[1] + d[0]
-            y == 7 -> no = no + d[1] + d[0] + d[0]
-            y == 8 -> no = no + d[1] + d[0] + d[0] + d[0]
-            else -> no = no + d[0] + d[2]
+            vitri == 0 -> str1 = str1
+            vitri == 1 -> str1 = str1 + bien[0]
+            vitri == 2 -> str1 = str1 + bien[0] + bien[0]
+            vitri == 3 -> str1 = str1 + bien[0] + bien[0] + bien[0]
+            vitri == 4 -> str1 = str1 + bien[0] + bien[1]
+            vitri == 5 -> str1 = str1 + bien[1]
+            vitri == 6 -> str1 = str1 + bien[1] + bien[0]
+            vitri == 7 -> str1 = str1 + bien[1] + bien[0] + bien[0]
+            vitri == 8 -> str1 = str1 + bien[1] + bien[0] + bien[0] + bien[0]
+            else -> str1 = str1 + bien[0] + bien[2]
         }
-        kq = no + kq
+        str2 = str1 + str2
         x /= 10
-        k++
-        no = ""
+        cap++
+        str1 = ""
     }
     if (i != 0) {
         for (g in 1..i)
-            kq = "M" + kq
+            str2 = "M" + str2
     }
-    return kq
+    return str2
 }
 
 /**
@@ -434,72 +369,72 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var no: String = ""
-    var kq: String = ""
-    var a: MutableList<String> = mutableListOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-    var b: MutableList<String> = mutableListOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
-    var c: MutableList<String> = mutableListOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
-    var d: MutableList<String> = mutableListOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
-    var e: MutableList<String> = a
-    var f: MutableList<String> = mutableListOf()
-    var x: Int = n % 1000
-    var y: Int = 0
+    var str1: String = ""
+    var str2: String = ""
+    var donvi: MutableList<String> = mutableListOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    var khac: MutableList<String> = mutableListOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+    var chuc: MutableList<String> = mutableListOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
+    var tram: MutableList<String> = mutableListOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
+    var bien: MutableList<String> = donvi
+    var nghin: MutableList<String> = mutableListOf()
+    var vitri: Int = n % 1000
+    var cap: Int = 0
     var k: Int = 1
-    while (x > 0) {
+    while (vitri > 0) {
         if (k == 2) {
-            e = c
+            bien = chuc
         }
         if (k == 3) {
-            e = d
+            bien = tram
         }
-        y = x % 10
-        no = e[y]
+        cap = vitri % 10
+        str1 = bien[cap]
         if (((n % 100) - (n % 10) == 10) and (k == 1)) {
-            no = b[(n % 100) - 10]
-            x /= 10
+            str1 = khac[(n % 100) - 10]
+            vitri /= 10
             k = 2
         }
-        f.add(no)
-        x /= 10
+        nghin.add(str1)
+        vitri /= 10
         k++
     }
-    x = (n - n % 1000) / 1000
-    if (x != 0) {
-        a[1] = "одна"
-        a[2] = "две"
-        e = a
-        no = ""
+    vitri = (n - n % 1000) / 1000
+    if (vitri != 0) {
+        donvi[1] = "одна"
+        donvi[2] = "две"
+        bien = donvi
+        str1 = ""
         k = 1
         when {
-            (x % 10 < 5) and (x % 10 > 1) and ((x % 100) - (x % 10) != 10) -> f.add("тысячи")
-            ((x % 100) - (x % 10) != 10) and (x % 10 == 1) -> f.add("тысяча")
-            else -> f.add("тысяч")
+            (vitri % 10 < 5) and (vitri % 10 > 1) and ((vitri % 100) - (vitri % 10) != 10) -> nghin.add("тысячи")
+            ((vitri % 100) - (vitri % 10) != 10) and (vitri % 10 == 1) -> nghin.add("тысяча")
+            else -> nghin.add("тысяч")
         }
-        while (x > 0) {
+        while (vitri > 0) {
             if (k == 2) {
-                e = c
+                bien = chuc
             }
             if (k == 3) {
-                e = d
+                bien = tram
             }
-            y = x % 10
-            no = e[y]
-            if (((x % 100) - (x % 10) == 10) and (k == 1)) {
-                no = b[(x % 100) - 10]
-                x /= 10
+            cap = vitri % 10
+            str1 = bien[cap]
+            if (((vitri % 100) - (vitri % 10) == 10) and (k == 1)) {
+                str1 = khac[(vitri % 100) - 10]
+                vitri /= 10
                 k = 2
             }
-            f.add(no)
-            x /= 10
+            nghin.add(str1)
+            vitri /= 10
             k++
         }
     }
-    for (i in 0 until f.size) {
-        if ((i == 0) or (f[i] == "")) {
-            kq = f[i] + kq
+    for (i in 0 until nghin.size) {
+        if ((i == 0) or (nghin[i] == "")) {
+            str2 = nghin[i] + str2
         } else {
-            kq = f[i] + " " + kq
+            str2 = nghin[i] + " " + str2
         }
     }
-    return kq.trim()
+    return str2.trim()
 }
