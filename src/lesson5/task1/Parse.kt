@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import sun.rmi.runtime.Log
+
 /**
  * Пример
  *
@@ -193,22 +195,19 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    val a = jumps.split(" ", "%").toMutableList()
-    var c: Int = -1
+    val a = jumps.split(" ", "%", "-")
+    var list: MutableList<String> = mutableListOf()
+    var x: Int = -1
     try {
-        for (i in a.size - 1 downTo 0) {
-            if (a[i] == "+") break
-            a.remove(a[i])
-        }
         for (part in a) {
-            if ((part != "") and (part != "+")) {
-                if (c < part.toInt())
-                    c = part.toInt()
-            }
+            if (part != "") list.add(part)
         }
-        return c
+        for (i in 0 until list.size) {
+            if (list[i] == "+" && list[i - 1].toInt() > x) x = list[i - 1].toInt()
+        }
+        return x
     } catch (e: NumberFormatException) {
-        return -1
+        return -2
     }
 }
 
@@ -310,7 +309,7 @@ fun mostExpensive(description: String): String {
  */
 fun fromRoman(roman: String): Int {
     var list: MutableList<Int> = mutableListOf()
-    var a: Int = 0
+    var a: Int = -1
     for (part in roman) {
         when {
             part.toString() == "I" -> list.add(1)
