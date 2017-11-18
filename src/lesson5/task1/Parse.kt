@@ -221,18 +221,30 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    var a = expression.split(" ").toMutableList()
-    var b: Int = 0
+    var chuoi = expression.split(" ").toMutableList()
+    var sum: Int = 0
     var c: Int = 1
+    var dau: Int = 0
+    var so: Int = 0
     try {
-        for (part in a) {
+        for (part in chuoi) {
             when {
-                part == "+" -> c = 1
-                part == "-" -> c = -1
-                else -> b += c * part.toInt()
+                part == "+" -> {
+                    c = 1
+                    dau++
+                }
+                part == "-" -> {
+                    c = -1
+                    dau++
+                }
+                else -> {
+                    sum += c * part.toInt()
+                    so++
+                }
             }
         }
-        return b
+        if (dau == so - 1) return sum
+        else throw IllegalArgumentException("dep trai")
     } catch (e: NumberFormatException) {
         throw IllegalArgumentException("dep trai")
     }
