@@ -68,30 +68,13 @@ fun main(args: Array<String>) {
  * При неверном формате входной строки вернуть пустую строку
  */
 fun dateStrToDigit(str: String): String {
-    var p = str.split(" ")
-    var a: Int = 0
+    val p = str.split(" ")
+    val list = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
+            "сентября", "октября", "ноября", "декабря")
     try {
         if (p.size != 3) return ""
-        when {
-            p[1] == "января" -> a = 1
-            p[1] == "февраля" -> a = 2
-            p[1] == "марта" -> a = 3
-            p[1] == "апреля" -> a = 4
-            p[1] == "мая" -> a = 5
-            p[1] == "июня" -> a = 6
-            p[1] == "июля" -> a = 7
-            p[1] == "августа" -> a = 8
-            p[1] == "сентября" -> a = 9
-            p[1] == "октября" -> a = 10
-            p[1] == "ноября" -> a = 11
-            p[1] == "декабря" -> a = 12
-            else -> return ""
-        }
-        var x: Int = p[0].toInt()
-        var y: Int = p[2].toInt()
-
-        if ((x < 32) and (x > 0) and (y >= 0)) {
-            return String.format("%02d.%02d.%d", x, a, y)
+        if ((p[0].toInt() < 32) && (p[0].toInt() > 0) && (p[2].toInt() >= 0) && (list.indexOf(p[1]) != -1)) {
+            return String.format("%02d.%02d.%d", p[0].toInt(), list.indexOf(p[1]) + 1, p[2].toInt())
         } else return ""
     } catch (e: NumberFormatException) {
         return ""
