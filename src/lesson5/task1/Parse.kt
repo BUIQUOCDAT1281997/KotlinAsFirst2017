@@ -233,8 +233,8 @@ fun plusMinus(expression: String): Int {
             }
         }
         return b
-    } catch (e: IllegalArgumentException) {
-        return "sai".toInt()
+    } catch (e: NumberFormatException) {
+        throw IllegalArgumentException("dep trai")
     }
 }
 
