@@ -140,7 +140,8 @@ fun flattenPhoneNumber(phone: String): String {
     for (part in p) {
         kq = kq + part
     }
-    return kq
+    if ((kq.indexOf("+") != 0 && kq.indexOf("+") != -1) || (kq.length == 1 && kq.indexOf("+") != -1)) return ""
+    else return kq
 }
 
 /**
