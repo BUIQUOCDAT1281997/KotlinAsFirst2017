@@ -365,16 +365,8 @@ fun fromRoman(roman: String): Int {
  *
  */
 fun timvitrituongung(chuoi: String, vitri: Int): Int {
-    var a: Int = 0
-    var b: Int = 0
     var c: Int = 1
     var list: MutableList<Int> = mutableListOf()
-    for (i in 0 until chuoi.length) {
-        when {
-            chuoi[i].toString() == "[" -> a++
-            chuoi[i].toString() == "]" -> a--
-        }
-    }
     for (j in vitri + 1..chuoi.length - 1) {
         when {
             chuoi[j].toString() == "[" -> c++
@@ -386,22 +378,12 @@ fun timvitrituongung(chuoi: String, vitri: Int): Int {
 
         }
     }
-    if (a != 0) return -1
-    else return list[0]
+    return list[0]
 }
 
 fun timvitrituongung2(chuoi: String, vitri: Int): Int {
-    var a: Int = 0
-    var b: Int = 0
     var c: Int = 1
     var list: MutableList<Int> = mutableListOf()
-    for (i in 0 until chuoi.length) {
-        when {
-            chuoi[i].toString() == "[" -> a++
-            chuoi[i].toString() == "]" -> a--
-        }
-    }
-    if (a != 0) return -1
     for (j in vitri - 1 downTo 0) {
         when {
             chuoi[j].toString() == "]" -> c++
@@ -421,9 +403,17 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     var j: Int = 0
     var demsolenh: Int = 0
     var a: Int = cells / 2
+    var b: Int = 0
     for (i in 1..cells) {
         list.add(0)
     }
+    for (i in 0 until commands.length) {
+        when {
+            commands[i].toString() == "[" -> b++
+            commands[i].toString() == "]" -> b--
+        }
+    }
+    if (b != 0) throw IllegalArgumentException("dep trai")
     while (j <= commands.length - 1 && demsolenh < limit) {
         when {
             commands[j].toString() == "+" -> {
@@ -446,7 +436,6 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
                 demsolenh++
             }
             commands[j].toString() == "[" && list[a] == 0 -> {
-                if (timvitrituongung(commands, j) == -1) throw IllegalArgumentException("dep trai")
                 j = timvitrituongung(commands, j) - 1
             }
             commands[j].toString() == "[" -> {
@@ -456,7 +445,6 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
                 demsolenh++
             }
             commands[j].toString() == "]" -> {
-                if (timvitrituongung2(commands, j) == -1) throw IllegalArgumentException("dep trai")
                 j = timvitrituongung2(commands, j) - 1
             }
             else -> throw IllegalArgumentException("dep trai")
