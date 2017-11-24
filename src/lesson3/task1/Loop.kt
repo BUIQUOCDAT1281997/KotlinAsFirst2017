@@ -125,7 +125,7 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var a: Int = 1
+    var a = 1
     for (i in 2..n) {
         a = i
         if (n % i == 0) break
@@ -139,7 +139,7 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var a: Int = 1
+    var a = 1
     for (i in (n / 2.toInt()) downTo 1) {
         a = i
         if (n % i == 0) break
@@ -210,9 +210,9 @@ fun sin(x: Double, eps: Double): Double {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun cos(x: Double, eps: Double): Double {
-    var n: Double = 0.0
-    var c: Double = 0.0
-    var b: Double = x % (2 * Math.PI)
+    var n = 0.0
+    var c = 0.0
+    var b = x % (2 * Math.PI)
     while (abs(pow(-1.0, n) * pow(b, 2 * n) / (factorial((2 * n.toInt())))) > eps) {
         c += (pow(-1.0, n) * pow(b, 2 * n) / (factorial((2 * n.toInt()))))
         n++
@@ -227,10 +227,10 @@ fun cos(x: Double, eps: Double): Double {
  * Не использовать строки при решении задачи.
  */
 fun revert(n: Int): Int {
-    var x: Int = n
-    var y: Int = 0
-    var a: Int = 0
-    var b: Int = n
+    var x = n
+    var y = 0
+    var a = 0
+    var b = n
     if (n < 10)
         return n
     else {
@@ -264,8 +264,8 @@ fun isPalindrome(n: Int): Boolean {
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var a: Int = 0
-    var x: Int = n
+    var a = 0
+    var x = n
     if (n < 10)
         return false
     while (x >= 10) {
@@ -284,10 +284,10 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var x: Int = 0
-    var y: Int = 0
-    var s: Int = 1
-    var r: Int = 1
+    var x = 0
+    var y = 0
+    var s = 1
+    var r = 1
     while (y < n) {
         x++
         s = x * x
@@ -314,11 +314,11 @@ fun squareSequenceDigit(n: Int): Int {
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var x1: Int = 1
-    var x2: Int = 1
-    var x3: Int = 1
-    var a: Int = 2
-    var b: Int = 1
+    var x1 = 1
+    var x2 = 1
+    var x3 = 1
+    var a = 2
+    var b = 1
     if (n <= 2)
         return 1
     while (a < n) {

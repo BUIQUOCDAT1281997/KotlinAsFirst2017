@@ -91,7 +91,7 @@ fun dateStrToDigit(str: String): String {
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
     if (parts.size != 3) return ""
-    var x: String = ""
+    var x = ""
     try {
         when {
             parts[1] == "01" -> x = "января"
@@ -156,7 +156,7 @@ fun flattenPhoneNumber(phone: String): String {
  */
 fun bestLongJump(jumps: String): Int {
     val a = jumps.split(" ", "-", "%")
-    var b: Int = -1
+    var b = -1
     try {
         for (part in a) {
             if (part == "") continue
@@ -181,7 +181,7 @@ fun bestLongJump(jumps: String): Int {
 fun bestHighJump(jumps: String): Int {
     val a = jumps.split(" ", "%", "-")
     var list: MutableList<String> = mutableListOf()
-    var x: Int = -1
+    var x = -1
     try {
         for (part in a) {
             if (part != "") list.add(part)
@@ -205,11 +205,11 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    var chuoi = expression.split(" ").toMutableList()
-    var sum: Int = 0
-    var c: Int = 1
-    var dau: Int = 0
-    var so: Int = 0
+    val chuoi = expression.split(" ")
+    var sum = 0
+    var c = 1
+    var dau = 0
+    var so = 0
     try {
         for (part in chuoi) {
             when {
@@ -244,10 +244,10 @@ fun plusMinus(expression: String): Int {
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    val a = str.split(" ").toMutableList()
-    var b: String = ""
-    var c: Int = 0
-    var d: Int = 0
+    val a = str.split(" ")
+    var b = ""
+    var c = 0
+    var d = 0
     for (i in 0 until a.size) {
         if (b == a[i].toLowerCase()) break
         c = i
@@ -275,10 +275,10 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть положительными
  */
 fun mostExpensive(description: String): String {
-    val a = description.split(" ", "; ").toMutableList()
-    var b: Double = 0.0
-    var c: Int = 0
-    var d: String = ""
+    val a = description.split(" ", "; ")
+    var b = 0.0
+    var c = 0
+    var d = ""
     try {
         for (i in 1..a.size - 1 step 2) {
             if (a[i].toDouble() > b) {
@@ -305,7 +305,7 @@ fun mostExpensive(description: String): String {
  */
 fun fromRoman(roman: String): Int {
     var list: MutableList<Int> = mutableListOf()
-    var a: Int = -1
+    var a = -1
     for (part in roman) {
         when {
             part.toString() == "I" -> list.add(1)
@@ -365,7 +365,7 @@ fun fromRoman(roman: String): Int {
  *
  */
 fun timvitrituongung(chuoi: String, vitri: Int): Int {
-    var c: Int = 1
+    var c = 1
     var list: MutableList<Int> = mutableListOf()
     for (j in vitri + 1..chuoi.length - 1) {
         when {
@@ -382,7 +382,7 @@ fun timvitrituongung(chuoi: String, vitri: Int): Int {
 }
 
 fun timvitrituongung2(chuoi: String, vitri: Int): Int {
-    var c: Int = 1
+    var c = 1
     var list: MutableList<Int> = mutableListOf()
     for (j in vitri - 1 downTo 0) {
         when {
@@ -400,10 +400,10 @@ fun timvitrituongung2(chuoi: String, vitri: Int): Int {
 
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     var list: MutableList<Int> = mutableListOf()
-    var j: Int = 0
-    var demsolenh: Int = 0
+    var j = 0
+    var demsolenh = 0
     var a: Int = cells / 2
-    var b: Int = 0
+    var b = 0
     for (i in 1..cells) {
         list.add(0)
     }

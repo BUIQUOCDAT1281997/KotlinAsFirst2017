@@ -109,7 +109,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var s: Double = 0.0
+    var s = 0.0
     for (element in v) {
         s += pow(element, 2.0)
     }
@@ -152,9 +152,9 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    if ((a.isEmpty()) or (b.isEmpty()))
+    if ((a.isEmpty()) || (b.isEmpty()))
         return 0.0
-    var c: Double = 0.0
+    var c = 0.0
     for (i in 0 until a.size) {
         c += (a[i] * b[i])
     }
@@ -172,7 +172,7 @@ fun times(a: List<Double>, b: List<Double>): Double {
 fun polynom(p: List<Double>, x: Double): Double {
     if (p.isEmpty())
         return 0.0
-    var s: Double = 0.0
+    var s = 0.0
     for (i in 0 until p.size) {
         s += p[i] * pow(x, i.toDouble())
     }
@@ -192,7 +192,7 @@ fun polynom(p: List<Double>, x: Double): Double {
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     if (list.isEmpty())
         return list
-    var element: Double = 0.0
+    var element = 0.0
     for (i in 0 until list.size) {
         list[i] += element
         element = list[i]
@@ -208,16 +208,16 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var s: Int = n
-    var a: Int = 2
+    var s = n
+    var a = 2
     val result = mutableListOf<Int>()
     while (a <= s / 2) {
         if (s % a == 0) {
             result.add(a)
             s /= a
             a = 2
-        } else
-            a++
+        }
+        a++
     }
     result.add(s)
     return result
@@ -241,7 +241,7 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
 fun convert(n: Int, base: Int): List<Int> {
     val chuoi = mutableListOf<Int>()
     val list = mutableListOf<Int>()
-    var s: Int = n
+    var s = n
     while (s >= base) {
         chuoi.add(s % base)
         s /= base
@@ -263,9 +263,9 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     val v = convert(n, base)
-    var word: String = "abcdefghijklmnopqrstuvwxyz"
-    var element: String = ""
-    var chuoi: String = ""
+    val word = "abcdefghijklmnopqrstuvwxyz"
+    var element = ""
+    var chuoi = ""
     for (i in 0 until v.size) {
         when {
             v[i] <= 9 -> element = v[i].toString()
@@ -285,9 +285,9 @@ fun convertToString(n: Int, base: Int): String {
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    var a: Int = 0
-    for (i in 0 until digits.size) {
-        a = a * base + digits[i]
+    var a = 0
+    for (digit in digits) {
+        a = a * base + digit
     }
     return a
 }
@@ -303,7 +303,7 @@ fun decimal(digits: List<Int>, base: Int): Int {
  */
 fun decimalFromString(str: String, base: Int): Int {
     var list: MutableList<Int> = mutableListOf()
-    var word = "0123456789abcdefghijklmnopqrstuvwxyz"
+    val word = "0123456789abcdefghijklmnopqrstuvwxyz"
     for (element in str) {
         list.add(word.indexOf(element))
     }
@@ -319,43 +319,42 @@ fun decimalFromString(str: String, base: Int): Int {
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var str1: String = ""
-    var str2: String = ""
-    var unit: MutableList<String> = mutableListOf("I", "V", "X")
-    var dozens: MutableList<String> = mutableListOf("X", "L", "C")
-    var hundreds: MutableList<String> = mutableListOf("C", "D", "M")
-    var bien: MutableList<String> = unit
-    var vitri: Int = 0
-    var cap: Int = 1
-    var x: Int = n % 1000
-    var i: Int = (n - x) / 1000
+    var str1 = ""
+    var str2 = ""
+    val units = listOf("I", "V", "X")
+    val dozens = listOf("X", "L", "C")
+    val hundreds = listOf("C", "D", "M")
+    var position = 0
+    var convert = 1
+    var x = n % 1000
     while (x > 0) {
-        vitri = x % 10
-        if (cap == 2) {
-            bien = dozens
+        var change = units
+        position = x % 10
+        if (convert == 2) {
+            change = dozens
         }
-        if (cap == 3) {
-            bien = hundreds
+        if (convert == 3) {
+            change = hundreds
         }
-        when {
-            vitri == 0 -> str1 = str1
-            vitri == 1 -> str1 = str1 + bien[0]
-            vitri == 2 -> str1 = str1 + bien[0] + bien[0]
-            vitri == 3 -> str1 = str1 + bien[0] + bien[0] + bien[0]
-            vitri == 4 -> str1 = str1 + bien[0] + bien[1]
-            vitri == 5 -> str1 = str1 + bien[1]
-            vitri == 6 -> str1 = str1 + bien[1] + bien[0]
-            vitri == 7 -> str1 = str1 + bien[1] + bien[0] + bien[0]
-            vitri == 8 -> str1 = str1 + bien[1] + bien[0] + bien[0] + bien[0]
-            else -> str1 = str1 + bien[0] + bien[2]
+        str1 += when {
+            position == 0 -> 0
+            position == 1 -> change[0]
+            position == 2 -> change[0] + change[0]
+            position == 3 -> change[0] + change[0] + change[0]
+            position == 4 -> change[0] + change[1]
+            position == 5 -> change[1]
+            position == 6 -> change[1] + change[0]
+            position == 7 -> change[1] + change[0] + change[0]
+            position == 8 -> change[1] + change[0] + change[0] + change[0]
+            else -> change[0] + change[2]
         }
         str2 = str1 + str2
         x /= 10
-        cap++
+        convert++
         str1 = ""
     }
-    if (i != 0) {
-        for (g in 1..i)
+    if (n / 1000 != 0) {
+        for (g in 1..n / 1000)
             str2 = "M" + str2
     }
     return str2
@@ -369,71 +368,75 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var str1: String = ""
-    var str2: String = ""
-    var donvi: MutableList<String> = mutableListOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-    var khac: MutableList<String> = mutableListOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
-    var chuc: MutableList<String> = mutableListOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
-    var tram: MutableList<String> = mutableListOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
-    var bien: MutableList<String> = donvi
-    var nghin: MutableList<String> = mutableListOf()
-    var vitri: Int = n % 1000
-    var cap: Int = 0
-    var k: Int = 1
-    while (vitri > 0) {
+    var str1 = ""
+    var str2 = ""
+    var units = mutableListOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь",
+            "девять")
+    val others  = listOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+            "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+    val dozens = listOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
+            "восемьдесят", "девяносто")
+    val hundreds = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот",
+            "восемьсот", "девятьсот")
+    var change = units
+    var thousands: MutableList<String> = mutableListOf()
+    var position = n % 1000
+    var convert = 0
+    var k = 1
+    while (position > 0) {
         if (k == 2) {
-            bien = chuc
+            change = dozens.toMutableList()
         }
         if (k == 3) {
-            bien = tram
+            change = hundreds.toMutableList()
         }
-        cap = vitri % 10
-        str1 = bien[cap]
+        convert = position % 10
+        str1 = change[convert]
         if (((n % 100) - (n % 10) == 10) and (k == 1)) {
-            str1 = khac[(n % 100) - 10]
-            vitri /= 10
+            str1 = others[(n % 100) - 10]
+            position /= 10
             k = 2
         }
-        nghin.add(str1)
-        vitri /= 10
+        thousands.add(str1)
+        position /= 10
         k++
     }
-    vitri = (n - n % 1000) / 1000
-    if (vitri != 0) {
-        donvi[1] = "одна"
-        donvi[2] = "две"
-        bien = donvi
+    position = (n - n % 1000) / 1000
+    if (position != 0) {
+        units[1] = "одна"
+        units[2] = "две"
+        change = units
         str1 = ""
         k = 1
         when {
-            (vitri % 10 < 5) and (vitri % 10 > 1) and ((vitri % 100) - (vitri % 10) != 10) -> nghin.add("тысячи")
-            ((vitri % 100) - (vitri % 10) != 10) and (vitri % 10 == 1) -> nghin.add("тысяча")
-            else -> nghin.add("тысяч")
+            (position % 10 < 5) && (position % 10 > 1) && ((position % 100) - (position % 10) != 10) -> thousands.add("тысячи")
+            ((position % 100) - (position % 10) != 10) && (position % 10 == 1) -> thousands.add("тысяча")
+            else -> thousands.add("тысяч")
         }
-        while (vitri > 0) {
+        while (position > 0) {
             if (k == 2) {
-                bien = chuc
+                change = dozens.toMutableList()
             }
             if (k == 3) {
-                bien = tram
+                change = hundreds.toMutableList()
             }
-            cap = vitri % 10
-            str1 = bien[cap]
-            if (((vitri % 100) - (vitri % 10) == 10) and (k == 1)) {
-                str1 = khac[(vitri % 100) - 10]
-                vitri /= 10
+            convert = position % 10
+            str1 = change[convert]
+            if (((position % 100) - (position % 10) == 10) && (k == 1)) {
+                str1 = others[(position % 100) - 10]
+                position /= 10
                 k = 2
             }
-            nghin.add(str1)
-            vitri /= 10
+            thousands.add(str1)
+            position /= 10
             k++
         }
     }
-    for (i in 0 until nghin.size) {
-        if ((i == 0) or (nghin[i] == "")) {
-            str2 = nghin[i] + str2
+    for (i in 0 until thousands.size) {
+        if ((i == 0) || (thousands[i] == "")) {
+            str2 = thousands[i] + str2
         } else {
-            str2 = nghin[i] + " " + str2
+            str2 = thousands[i] + " " + str2
         }
     }
     return str2.trim()
