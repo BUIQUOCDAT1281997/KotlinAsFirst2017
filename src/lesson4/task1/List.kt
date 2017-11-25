@@ -215,7 +215,7 @@ fun factorize(n: Int): List<Int> {
         if (s % a == 0) {
             result.add(a)
             s /= a
-            a = 2
+            a = 1
         }
         a++
     }
@@ -337,7 +337,7 @@ fun roman(n: Int): String {
             change = hundreds
         }
         str1 += when {
-            position == 0 -> 0
+            position == 0 -> ""
             position == 1 -> change[0]
             position == 2 -> change[0] + change[0]
             position == 3 -> change[0] + change[0] + change[0]
