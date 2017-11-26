@@ -375,7 +375,6 @@ fun timvitrituongung(chuoi: String, vitri: Int): Int {
                 c--
             }
             chuoi[j].toString() == "]" -> c--
-
         }
     }
     return list[0]
@@ -392,7 +391,6 @@ fun timvitrituongung2(chuoi: String, vitri: Int): Int {
                 c--
             }
             chuoi[j].toString() == "[" -> c--
-
         }
     }
     return list[0]
