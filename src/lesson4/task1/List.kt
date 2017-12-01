@@ -152,7 +152,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    if ((a.isEmpty()) || (b.isEmpty()))
+    if (a.isEmpty() || b.isEmpty())
         return 0.0
     var c = 0.0
     for (i in 0 until a.size) {
@@ -170,8 +170,6 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double {
-    if (p.isEmpty())
-        return 0.0
     var s = 0.0
     for (i in 0 until p.size) {
         s += p[i] * pow(x, i.toDouble())
@@ -190,8 +188,6 @@ fun polynom(p: List<Double>, x: Double): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-    if (list.isEmpty())
-        return list
     var element = 0.0
     for (i in 0 until list.size) {
         list[i] += element
@@ -336,16 +332,16 @@ fun roman(n: Int): String {
         if (convert == 3) {
             change = hundreds
         }
-        str1 += when {
-            position == 0 -> ""
-            position == 1 -> change[0]
-            position == 2 -> change[0] + change[0]
-            position == 3 -> change[0] + change[0] + change[0]
-            position == 4 -> change[0] + change[1]
-            position == 5 -> change[1]
-            position == 6 -> change[1] + change[0]
-            position == 7 -> change[1] + change[0] + change[0]
-            position == 8 -> change[1] + change[0] + change[0] + change[0]
+        str1 += when (position) {
+            0 -> ""
+            1 -> change[0]
+            2 -> change[0] + change[0]
+            3 -> change[0] + change[0] + change[0]
+            4 -> change[0] + change[1]
+            5 -> change[1]
+            6 -> change[1] + change[0]
+            7 -> change[1] + change[0] + change[0]
+            8 -> change[1] + change[0] + change[0] + change[0]
             else -> change[0] + change[2]
         }
         str2 = str1 + str2
@@ -372,7 +368,7 @@ fun russian(n: Int): String {
     var str2 = ""
     var units = mutableListOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь",
             "девять")
-    val others  = listOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+    val others = listOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
             "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
     val dozens = listOf("", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят",
             "восемьдесят", "девяносто")
@@ -409,8 +405,9 @@ fun russian(n: Int): String {
         str1 = ""
         k = 1
         when {
-            (position % 10 < 5) && (position % 10 > 1) && ((position % 100) - (position % 10) != 10) -> thousands.add("тысячи")
-            ((position % 100) - (position % 10) != 10) && (position % 10 == 1) -> thousands.add("тысяча")
+            position % 100 - position % 10 == 10 -> thousands.add("тысяч")
+            position % 10 < 5 && position % 10 > 1 -> thousands.add("тысячи")
+            position % 10 == 1 -> thousands.add("тысяча")
             else -> thousands.add("тысяч")
         }
         while (position > 0) {
