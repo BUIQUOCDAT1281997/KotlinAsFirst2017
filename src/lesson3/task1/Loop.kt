@@ -167,14 +167,12 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = when {
-    sqrt(n.toDouble()).toInt() / sqrt(n.toDouble()) == 1.0 -> true
-    sqrt(m.toDouble()).toInt() / sqrt(m.toDouble()) == 1.0 -> true
-    sqrt(n.toDouble()).toInt() - sqrt(m.toDouble()).toInt() >= 1 -> true
-    n == m -> true
-    else -> false
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    for (i in sqrt(m.toDouble()).toInt()..sqrt(n.toDouble()).toInt()) {
+        if (i * i <= n && i * i >= m) return true
+    }
+    return false
 }
-
 
 /**
  * Средняя
@@ -277,6 +275,17 @@ fun hasDifferentDigits(n: Int): Boolean {
  * 149162536496481100121144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
+fun locate(a: Int, b: Int, n: Int): Int {
+    var x = 0
+    var y = b
+    if (a == n) return b % 10
+    for (i in 1..(a - n + 1)) {
+        x = y % 10
+        y /= 10
+    }
+    return x
+}
+
 fun squareSequenceDigit(n: Int): Int {
     var x = 0
     var y = 0
@@ -290,14 +299,7 @@ fun squareSequenceDigit(n: Int): Int {
             y++
         }
     }
-    if (y == n)
-        return ((x * x) % 10)
-    r = x * x
-    for (i in 1..(y - n + 1)) {
-        x = r % 10
-        r /= 10
-    }
-    return x
+    return locate(y, x * x, n)
 }
 
 /**
@@ -325,11 +327,5 @@ fun fibSequenceDigit(n: Int): Int {
             a++
         }
     }
-    if (a == n)
-        return (x3 % 10)
-    for (i in 1..(a - n + 1)) {
-        b = x3 % 10
-        x3 /= 10
-    }
-    return b
+    return locate(a, x3, n)
 }
