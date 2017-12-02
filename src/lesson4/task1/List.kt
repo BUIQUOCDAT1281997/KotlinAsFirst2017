@@ -298,7 +298,7 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    val list= mutableListOf<Int>()
+    val list = mutableListOf<Int>()
     val word = "0123456789abcdefghijklmnopqrstuvwxyz"
     for (element in str) {
         list.add(word.indexOf(element))
