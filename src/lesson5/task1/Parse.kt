@@ -67,10 +67,11 @@ fun main(args: Array<String>) {
  * День и месяц всегда представлять двумя цифрами, например: 03.04.2011.
  * При неверном формате входной строки вернуть пустую строку
  */
+val list = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
+        "сентября", "октября", "ноября", "декабря")
+
 fun dateStrToDigit(str: String): String {
     val p = str.split(" ")
-    val list = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
-            "сентября", "октября", "ноября", "декабря")
     try {
         if (p.size != 3) return ""
         if ((p[0].toInt() < 32) && (p[0].toInt() > 0) && (p[2].toInt() >= 0) && (list.indexOf(p[1]) != -1)) {
@@ -91,25 +92,10 @@ fun dateStrToDigit(str: String): String {
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
     if (parts.size != 3) return ""
-    var x = ""
     try {
-        when {
-            parts[1] == "01" -> x = "января"
-            parts[1] == "02" -> x = "февраля"
-            parts[1] == "03" -> x = "марта"
-            parts[1] == "04" -> x = "апреля"
-            parts[1] == "05" -> x = "мая"
-            parts[1] == "06" -> x = "июня"
-            parts[1] == "07" -> x = "июля"
-            parts[1] == "08" -> x = "августа"
-            parts[1] == "09" -> x = "сентября"
-            parts[1] == "10" -> x = "октября"
-            parts[1] == "11" -> x = "ноября"
-            parts[1] == "12" -> x = "декабря"
-            else -> return ""
-        }
-        if ((parts[0].toInt() < 32) and (parts[0].toInt() > 0) and (parts[2].toInt() >= 0)) {
-            return String.format("%d %s %d", parts[0].toInt(), x, parts[2].toInt())
+        if (parts[1].toInt() < 1 || parts[1].toInt() > 12) return ""
+        if (parts[0].toInt() < 32 && parts[0].toInt() > 0 && parts[2].toInt() >= 0) {
+            return String.format("%d %s %d", parts[0].toInt(), list[parts[1].toInt() - 1], parts[2].toInt())
         } else return ""
     } catch (e: NumberFormatException) {
         return ""
@@ -129,15 +115,15 @@ fun dateDigitToStr(digital: String): String {
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    val p = phone.split(" ", "-", "(", ")")
-    val g = phone.split(" ", "-", "(", ")", "+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-    var f: MutableList<String> = mutableListOf()
-    for (element in g) {
-        if (element != "") f.add(element)
+    val list1 = phone.split(" ", "-", "(", ")")
+    val list2 = phone.split(" ", "-", "(", ")", "+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+    val check = mutableListOf<String>()
+    for (element in list2) {
+        if (element != "") check.add(element)
     }
-    if (f.isNotEmpty()) return ""
-    var kq: String = ""
-    for (part in p) {
+    if (check.isNotEmpty()) return ""
+    var kq = ""
+    for (part in list1) {
         kq = kq + part
     }
     if ((kq.indexOf("+") != 0 && kq.indexOf("+") != -1) || (kq.length == 1 && kq.indexOf("+") != -1)) return ""
@@ -180,7 +166,7 @@ fun bestLongJump(jumps: String): Int {
  */
 fun bestHighJump(jumps: String): Int {
     val a = jumps.split(" ", "%", "-")
-    var list: MutableList<String> = mutableListOf()
+    val list = mutableListOf<String>()
     var x = -1
     try {
         for (part in a) {
@@ -205,32 +191,32 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    val chuoi = expression.split(" ")
+    val list = expression.split(" ")
     var sum = 0
-    var c = 1
-    var dau = 0
-    var so = 0
+    var a = 1
+    var mark = 0
+    var noname = 0
     try {
-        for (part in chuoi) {
-            when {
-                part == "+" -> {
-                    c = 1
-                    dau++
+        for (part in list) {
+            when (part) {
+                "+" -> {
+                    a = 1
+                    mark++
                 }
-                part == "-" -> {
-                    c = -1
-                    dau++
+                "-" -> {
+                    a = -1
+                    mark++
                 }
                 else -> {
-                    sum += c * part.toInt()
-                    so++
+                    sum += a * part.toInt()
+                    noname++
                 }
             }
         }
-        if (dau == so - 1) return sum
-        else throw IllegalArgumentException("dep trai")
+        if (mark == noname - 1) return sum
+        else throw IllegalArgumentException("")
     } catch (e: NumberFormatException) {
-        throw IllegalArgumentException("dep trai")
+        throw IllegalArgumentException("")
     }
 }
 
@@ -244,23 +230,23 @@ fun plusMinus(expression: String): Int {
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    val a = str.split(" ")
-    var b = ""
-    var c = 0
-    var d = 0
-    for (i in 0 until a.size) {
-        if (b == a[i].toLowerCase()) break
-        c = i
-        b = a[i].toLowerCase()
-    }
-    if (b == a[a.size - 1].toLowerCase())
-        return -1
-    else {
-        for (i in 0..(c - 1)) {
-            d += a[i].length
+    val list = str.split(" ")
+    var words = ""
+    var Position = 0
+    var result = 0
+    for (i in 0 until list.size) {
+        if (words == list[i].toLowerCase()) {
+            Position = i
+            break
         }
-        return d + c
+        words = list[i].toLowerCase()
     }
+    if (Position == 0) return -1
+    for (i in 0..(Position - 2)) {
+        result += list[i].length
+
+    }
+    return result + Position - 1
 }
 
 /**
@@ -275,18 +261,17 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть положительными
  */
 fun mostExpensive(description: String): String {
-    val a = description.split(" ", "; ")
-    var b = 0.0
-    var c = 0
-    var d = ""
+    val list = description.split(" ", "; ")
+    var element = 0.0
+    var index = 0
     try {
-        for (i in 1..a.size - 1 step 2) {
-            if (a[i].toDouble() > b) {
-                b = a[i].toDouble()
-                c = i - 1
+        for (i in 1..list.size - 1 step 2) {
+            if (list[i].toDouble() > element) {
+                element = list[i].toDouble()
+                index = i - 1
             }
         }
-        return a[c]
+        return list[index]
     } catch (e: NumberFormatException) {
         return ""
     }
@@ -304,17 +289,17 @@ fun mostExpensive(description: String): String {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    var list: MutableList<Int> = mutableListOf()
+    val list = mutableListOf<Int>()
     var a = -1
     for (part in roman) {
-        when {
-            part.toString() == "I" -> list.add(1)
-            part.toString() == "V" -> list.add(5)
-            part.toString() == "X" -> list.add(10)
-            part.toString() == "L" -> list.add(50)
-            part.toString() == "C" -> list.add(100)
-            part.toString() == "D" -> list.add(500)
-            part.toString() == "M" -> list.add(1000)
+        when (part) {
+            'I' -> list.add(1)
+            'V' -> list.add(5)
+            'X' -> list.add(10)
+            'L' -> list.add(50)
+            'C' -> list.add(100)
+            'D' -> list.add(500)
+            'M' -> list.add(1000)
             else -> return -1
         }
     }
@@ -322,7 +307,7 @@ fun fromRoman(roman: String): Int {
         if (i == 0) a = list[0]
         else {
             if (list[i] <= list[i - 1]) a += list[i]
-            else a = a + list[i] - 2 * list[i - 1]
+            else a += list[i] - 2 * list[i - 1]
         }
     }
     return a
@@ -364,91 +349,85 @@ fun fromRoman(roman: String): Int {
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun timvitrituongung(chuoi: String, vitri: Int): Int {
+fun find(str: String, Position: Int): Int {
     var c = 1
-    var list: MutableList<Int> = mutableListOf()
-    for (j in vitri + 1..chuoi.length - 1) {
-        when {
-            chuoi[j].toString() == "[" -> c++
-            chuoi[j].toString() == "]" && c == 1 -> {
-                list.add(j)
+    val list = mutableListOf<Int>()
+    for (j in Position + 1..str.length - 1) {
+        when (str[j]) {
+            '[' -> c++
+            ']' -> {
+                if (c == 1) list.add(j)
                 c--
             }
-            chuoi[j].toString() == "]" -> c--
         }
     }
     return list[0]
 }
 
-fun timvitrituongung2(chuoi: String, vitri: Int): Int {
+fun find2(str: String, Position: Int): Int {
     var c = 1
-    var list: MutableList<Int> = mutableListOf()
-    for (j in vitri - 1 downTo 0) {
-        when {
-            chuoi[j].toString() == "]" -> c++
-            chuoi[j].toString() == "[" && c == 1 -> {
-                list.add(j)
+    val list = mutableListOf<Int>()
+    for (j in Position - 1 downTo 0) {
+        when (str[j]) {
+            ']' -> c++
+            '[' -> {
+                if (c == 1) list.add(j)
                 c--
             }
-            chuoi[j].toString() == "[" -> c--
         }
     }
     return list[0]
 }
 
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
-    var list: MutableList<Int> = mutableListOf()
-    var j = 0
+    val list = mutableListOf<Int>()
+    var index = 0
     var demsolenh = 0
-    var a: Int = cells / 2
-    var b = 0
+    var Position = cells / 2
+    var a = 0
     for (i in 1..cells) {
         list.add(0)
     }
     for (i in 0 until commands.length) {
-        when {
-            commands[i].toString() == "[" -> b++
-            commands[i].toString() == "]" -> b--
+        when (commands[i]) {
+            '[' -> a++
+            ']' -> a--
         }
     }
-    if (b != 0) throw IllegalArgumentException("dep trai")
-    while (j <= commands.length - 1 && demsolenh < limit) {
-        when {
-            commands[j].toString() == "+" -> {
-                list[a]++
+    if (a != 0) throw IllegalArgumentException("")
+    while (index <= commands.length - 1 && demsolenh < limit) {
+        when (commands[index]) {
+            '+' -> {
+                list[Position]++
                 demsolenh++
             }
-            commands[j].toString() == "-" -> {
-                list[a]--
+            '-' -> {
+                list[Position]--
                 demsolenh++
             }
-            commands[j].toString() == " " -> {
+            ' ' -> {
                 demsolenh++
             }
-            commands[j].toString() == ">" -> {
-                a++
+            '>' -> {
+                Position++
                 demsolenh++
             }
-            commands[j].toString() == "<" -> {
-                a--
+            '<' -> {
+                Position--
                 demsolenh++
             }
-            commands[j].toString() == "[" && list[a] == 0 -> {
-                j = timvitrituongung(commands, j) - 1
+            '[' -> {
+                if (list[Position] == 0) index = find(commands, index) - 1
+                else demsolenh++
             }
-            commands[j].toString() == "[" -> {
-                demsolenh++
+            ']' -> {
+                if (list[Position] == 0) demsolenh++
+                else index = find2(commands, index) - 1
             }
-            commands[j].toString() == "]" && list[a] == 0 -> {
-                demsolenh++
-            }
-            commands[j].toString() == "]" -> {
-                j = timvitrituongung2(commands, j) - 1
-            }
-            else -> throw IllegalArgumentException("dep trai")
+            else -> throw IllegalArgumentException("")
         }
-        if (a < 0 || a > cells - 1) throw IllegalStateException("ga lan")
-        j++
+        if (Position < 0 || Position > cells - 1) throw IllegalStateException("")
+        index++
     }
     return list
 }
