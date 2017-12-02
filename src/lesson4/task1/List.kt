@@ -235,18 +235,18 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    val chuoi = mutableListOf<Int>()
     val list = mutableListOf<Int>()
+    val result = mutableListOf<Int>()
     var s = n
     while (s >= base) {
-        chuoi.add(s % base)
+        list.add(s % base)
         s /= base
     }
-    chuoi.add(s)
-    for (i in chuoi.size - 1 downTo 0) {
-        list.add(chuoi[i])
+    list.add(s)
+    for (i in list.size - 1 downTo 0) {
+        result.add(list[i])
     }
-    return list
+    return result
 }
 
 /**
@@ -258,19 +258,19 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    val v = convert(n, base)
+    val list = convert(n, base)
     val word = "abcdefghijklmnopqrstuvwxyz"
     var element = ""
-    var chuoi = ""
-    for (i in 0 until v.size) {
+    var str = ""
+    for (i in 0 until list.size) {
         when {
-            v[i] <= 9 -> element = v[i].toString()
-            v[i] > 9 && v[i] <= 35 -> element = word[v[i] - 10].toString()
+            list[i] <= 9 -> element = list[i].toString()
+            list[i] > 9 && list[i] <= 35 -> element = word[list[i] - 10].toString()
             else -> element = "z"
         }
-        chuoi = chuoi + element
+        str = str + element
     }
-    return chuoi
+    return str
 }
 
 /**
@@ -298,7 +298,7 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    var list: MutableList<Int> = mutableListOf()
+    val list= mutableListOf<Int>()
     val word = "0123456789abcdefghijklmnopqrstuvwxyz"
     for (element in str) {
         list.add(word.indexOf(element))
