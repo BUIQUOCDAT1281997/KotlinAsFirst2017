@@ -263,9 +263,9 @@ fun convertToString(n: Int, base: Int): String {
     var element = ""
     var str = ""
     for (i in 0 until list.size) {
-        when {
-            list[i] <= 9 -> element = list[i].toString()
-            list[i] > 9 && list[i] <= 35 -> element = word[list[i] - 10].toString()
+        when (list[i]) {
+            in 0..9 -> element = list[i].toString()
+            in 10..35 -> element = word[list[i] - 10].toString()
             else -> element = "z"
         }
         str = str + element
