@@ -2,7 +2,6 @@
 
 package lesson5.task1
 
-import sun.rmi.runtime.Log
 
 /**
  * Пример
@@ -67,7 +66,7 @@ fun main(args: Array<String>) {
  * День и месяц всегда представлять двумя цифрами, например: 03.04.2011.
  * При неверном формате входной строки вернуть пустую строку
  */
-val list = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
+val list = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
         "сентября", "октября", "ноября", "декабря")
 
 fun dateStrToDigit(str: String): String {
@@ -177,7 +176,7 @@ fun bestHighJump(jumps: String): Int {
         }
         return x
     } catch (e: NumberFormatException) {
-        return -2
+        return -1
     }
 }
 
@@ -232,21 +231,21 @@ fun plusMinus(expression: String): Int {
 fun firstDuplicateIndex(str: String): Int {
     val list = str.split(" ")
     var words = ""
-    var Position = 0
+    var position = 0
     var result = 0
     for (i in 0 until list.size) {
         if (words == list[i].toLowerCase()) {
-            Position = i
+            position = i
             break
         }
         words = list[i].toLowerCase()
     }
-    if (Position == 0) return -1
-    for (i in 0..(Position - 2)) {
+    if (position == 0) return -1
+    for (i in 0..(position - 2)) {
         result += list[i].length
 
     }
-    return result + Position - 1
+    return result + position - 1
 }
 
 /**
@@ -349,10 +348,10 @@ fun fromRoman(roman: String): Int {
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun find(str: String, Position: Int): Int {
+fun findlocation(str: String, position: Int): Int {
     var c = 1
     val list = mutableListOf<Int>()
-    for (j in Position + 1..str.length - 1) {
+    for (j in position + 1..str.length - 1) {
         when (str[j]) {
             '[' -> c++
             ']' -> {
@@ -364,10 +363,10 @@ fun find(str: String, Position: Int): Int {
     return list[0]
 }
 
-fun find2(str: String, Position: Int): Int {
+fun findlocation2(str: String, position: Int): Int {
     var c = 1
     val list = mutableListOf<Int>()
-    for (j in Position - 1 downTo 0) {
+    for (j in position - 1 downTo 0) {
         when (str[j]) {
             ']' -> c++
             '[' -> {
@@ -382,51 +381,52 @@ fun find2(str: String, Position: Int): Int {
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     val list = mutableListOf<Int>()
     var index = 0
-    var demsolenh = 0
-    var Position = cells / 2
+    var count = 0
+    var position = cells / 2
     var a = 0
     for (i in 1..cells) {
         list.add(0)
     }
     for (i in 0 until commands.length) {
-        when (commands[i]) {
-            '[' -> a++
-            ']' -> a--
+        when {
+            a < 0 -> throw IllegalArgumentException("")
+            commands[i] == '[' -> a++
+            commands[i] == ']' -> a--
         }
     }
     if (a != 0) throw IllegalArgumentException("")
-    while (index <= commands.length - 1 && demsolenh < limit) {
+    while (index <= commands.length - 1 && count < limit) {
         when (commands[index]) {
             '+' -> {
-                list[Position]++
-                demsolenh++
+                list[position]++
+                count++
             }
             '-' -> {
-                list[Position]--
-                demsolenh++
+                list[position]--
+                count++
             }
             ' ' -> {
-                demsolenh++
+                count++
             }
             '>' -> {
-                Position++
-                demsolenh++
+                position++
+                count++
             }
             '<' -> {
-                Position--
-                demsolenh++
+                position--
+                count++
             }
             '[' -> {
-                if (list[Position] == 0) index = find(commands, index) - 1
-                else demsolenh++
+                if (list[position] == 0) index = findlocation(commands, index) - 1
+                else count++
             }
             ']' -> {
-                if (list[Position] == 0) demsolenh++
-                else index = find2(commands, index) - 1
+                if (list[position] == 0) count++
+                else index = findlocation2(commands, index) - 1
             }
             else -> throw IllegalArgumentException("")
         }
-        if (Position < 0 || Position > cells - 1) throw IllegalStateException("")
+        if (position < 0 || position > cells - 1) throw IllegalStateException("")
         index++
     }
     return list
