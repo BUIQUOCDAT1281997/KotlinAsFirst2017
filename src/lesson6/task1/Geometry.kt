@@ -74,11 +74,7 @@ data class Circle(val center: Point, val radius: Double) {
      * расстояние между их центрами минус сумма их радиусов.
      * Расстояние между пересекающимися окружностями считать равным 0.0.
      */
-    fun distance(other: Circle): Double {
-        if (Math.sqrt(sqr(center.x - other.center.x) + sqr(center.y - other.center.y)) > radius + other.radius)
-            return Math.sqrt(sqr(center.x - other.center.x) + sqr(center.y - other.center.y)) - radius - other.radius
-        else return 0.0
-    }
+    fun distance(other: Circle): Double = Math.max(center.distance(other.center), radius + other.radius) - radius - other.radius
 
     /**
      * Тривиальная
@@ -108,12 +104,17 @@ data class Segment(val begin: Point, val end: Point) {
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
 fun diameter(vararg points: Point): Segment {
-    var name: Segment = Segment(begin = Point(0.0, 0.0), end = Point(0.0, 0.0))
-    var m = 0
-    if (points.size < 2) throw IllegalArgumentException("dep trai")
+    var name = Segment(Point(0.0, 0.0), Point(0.0, 0.0))
+    var m = 0.0
+    var a = 0.0
+    if (points.size < 2) throw IllegalArgumentException("")
     for (i in 0..points.size - 2) {
         for (k in i + 1..points.size - 1) {
-            if (Math.sqrt(sqr(points[i].x - points[k].x) + sqr(points[i].y - points[k].y)) > m) name = Segment(points[i], points[k])
+            a = points[i].distance(points[k])
+            if (a > m) {
+                name = Segment(points[i], points[k])
+                m = a
+            }
         }
     }
     return name
@@ -126,8 +127,8 @@ fun diameter(vararg points: Point): Segment {
  * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
  */
 fun circleByDiameter(diameter: Segment): Circle
-        = Circle(center = Point((diameter.begin.x + diameter.end.x) / 2, (diameter.begin.y + diameter.end.y) / 2),
-        radius = Math.sqrt(sqr(diameter.begin.x - diameter.end.x) + sqr(diameter.begin.y + diameter.end.y)) / 2)
+        = Circle(Point((diameter.begin.x + diameter.end.x) / 2, (diameter.begin.y + diameter.end.y) / 2),
+        diameter.begin.distance(diameter.end) / 2)
 
 /**
  * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
@@ -166,14 +167,23 @@ class Line private constructor(val b: Double, val angle: Double) {
  *
  * Построить прямую по отрезку
  */
-fun lineBySegment(s: Segment): Line = TODO()
+fun lineBySegment(s: Segment): Line {
+    val a = s.begin.x - s.end.x
+    val b = s.begin.y - s.end.y
+    return when {
+        a == 0.0 -> Line(s.begin, Math.PI / 2)
+        b == 0.0 -> Line(s.begin, 0.0)
+        a * b > 0 -> Line(s.begin, Math.atan(b / a))
+        else -> Line(s.begin, Math.PI - Math.atan(-b / a))
+    }
+}
 
 /**
  * Средняя
  *
  * Построить прямую по двум точкам
  */
-fun lineByPoints(a: Point, b: Point): Line = TODO()
+fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
 
 /**
  * Сложная
@@ -181,12 +191,12 @@ fun lineByPoints(a: Point, b: Point): Line = TODO()
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
 fun bisectorByPoints(a: Point, b: Point): Line {
-    when {
-        (a.x > b.x && a.y > b.y) || (b.x > a.x && b.y > a.y) -> return Line(point = Point((a.x + b.x) / 2, (a.y + b.y) / 2),
-                angle = Math.atan(-1 / Math.abs((a.y - b.y) / (a.x - b.x))))
-        a.x == b.x -> return Line(point = Point((a.x + b.x) / 2, (a.y + b.y) / 2), angle = 0.0)
-        a.y == b.y -> return Line(point = Point((a.x + b.x) / 2, (a.y + b.y) / 2), angle = Math.PI / 2)
-        else -> return Line(point = Point((a.x + b.x) / 2, (a.y + b.y) / 2), angle = Math.atan(1 / Math.abs((a.y - b.y) / (a.x - b.x))))
+    return when {
+        (a.x > b.x && a.y > b.y) || (b.x > a.x && b.y > a.y) -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2),
+                Math.atan(-(a.x - b.x) / Math.abs((a.y - b.y))))
+        a.x == b.x -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), 0.0)
+        a.y == b.y -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.PI / 2)
+        else -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.atan(Math.abs((a.x - b.x) / (a.y - b.y))))
     }
 }
 
