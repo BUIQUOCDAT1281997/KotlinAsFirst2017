@@ -105,15 +105,14 @@ data class Segment(val begin: Point, val end: Point) {
  */
 fun diameter(vararg points: Point): Segment {
     var name = Segment(Point(0.0, 0.0), Point(0.0, 0.0))
-    var m = 0.0
-    var a = 0.0
+    var maxDistance = 0.0
     if (points.size < 2) throw IllegalArgumentException("")
-    for (i in 0..points.size - 2) {
-        for (k in i + 1..points.size - 1) {
-            a = points[i].distance(points[k])
-            if (a > m) {
+    for (i in 0 until points.size) {
+        for (k in i + 1 until points.size) {
+            var a = points[i].distance(points[k])
+            if (a > maxDistance) {
                 name = Segment(points[i], points[k])
-                m = a
+                maxDistance = a
             }
         }
     }
@@ -195,14 +194,11 @@ fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
 fun bisectorByPoints(a: Point, b: Point): Line {
-    val m = a.x - b.x
-    val n = a.y - b.y
-    return when {
-        a.x == b.x -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), 0.0)
-        a.y == b.y -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.PI / 2)
-        m * n > 0 -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.atan(n / m))
-        else -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.PI - Math.atan(-n / m))
-    }
+    val line = lineByPoints(a, b)
+    var angle = 0.0
+    if (line.angle < Math.PI / 2) angle = line.angle + Math.PI / 2
+    else angle = line.angle - Math.PI / 2
+    return Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), angle)
 }
 
 /**
@@ -235,7 +231,11 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
  * (построить окружность по трём точкам, или
  * построить окружность, описанную вокруг треугольника - эквивалентная задача).
  */
-fun circleByThreePoints(a: Point, b: Point, c: Point): Circle = TODO()
+fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
+    val x = bisectorByPoints(a, b)
+    val y = bisectorByPoints(b, c)
+    return Circle(x.crossPoint(y), x.crossPoint(y).distance(a))
+}
 
 /**
  * Очень сложная
