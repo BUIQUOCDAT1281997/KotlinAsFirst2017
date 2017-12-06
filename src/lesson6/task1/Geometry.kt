@@ -149,7 +149,11 @@ class Line private constructor(val b: Double, val angle: Double) {
      * Найти точку пересечения с другой линией.
      * Для этого необходимо составить и решить систему из двух уравнений (каждое для своей прямой)
      */
-    fun crossPoint(other: Line): Point = TODO()
+    fun crossPoint(other: Line): Point {
+        val x = (other.b * Math.cos(angle) - b * Math.cos(other.angle)) / Math.sin(angle - other.angle)
+        val y = (x * Math.sin(other.angle) + other.b) / Math.cos(other.angle)
+        return Point(x, y)
+    }
 
     override fun equals(other: Any?) = other is Line && angle == other.angle && b == other.b
 
@@ -191,12 +195,13 @@ fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
 fun bisectorByPoints(a: Point, b: Point): Line {
+    val m = a.x - b.x
+    val n = a.y - b.y
     return when {
-        (a.x > b.x && a.y > b.y) || (b.x > a.x && b.y > a.y) -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2),
-                Math.atan(-(a.x - b.x) / Math.abs((a.y - b.y))))
         a.x == b.x -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), 0.0)
         a.y == b.y -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.PI / 2)
-        else -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.atan(Math.abs((a.x - b.x) / (a.y - b.y))))
+        m * n > 0 -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.atan(n / m))
+        else -> Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.PI - Math.atan(-n / m))
     }
 }
 
@@ -206,7 +211,20 @@ fun bisectorByPoints(a: Point, b: Point): Line {
  * Задан список из n окружностей на плоскости. Найти пару наименее удалённых из них.
  * Если в списке менее двух окружностей, бросить IllegalArgumentException
  */
-fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
+fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
+    if (circles.size < 2) throw IllegalArgumentException("")
+    var pair = Pair(circles[0], circles[1])
+    var dist = circles[0].distance(circles[1])
+    for (i in 0..circles.size - 2) {
+        for (k in i + 1..circles.size - 1) {
+            if (circles[i].distance(circles[k]) < dist) {
+                dist = circles[i].distance(circles[k])
+                pair = Pair(circles[i], circles[k])
+            }
+        }
+    }
+    return pair
+}
 
 /**
  * Сложная
