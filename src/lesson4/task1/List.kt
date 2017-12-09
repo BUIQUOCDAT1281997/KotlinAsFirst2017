@@ -315,8 +315,7 @@ fun decimalFromString(str: String, base: Int): Int {
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var str1 = ""
-    var str2 = ""
+    var result = ""
     val units = listOf("I", "V", "X")
     val dozens = listOf("X", "L", "C")
     val hundreds = listOf("C", "D", "M")
@@ -324,6 +323,7 @@ fun roman(n: Int): String {
     var convert = 1
     var x = n % 1000
     while (x > 0) {
+        var string = ""
         var change = units
         position = x % 10
         if (convert == 2) {
@@ -332,7 +332,7 @@ fun roman(n: Int): String {
         if (convert == 3) {
             change = hundreds
         }
-        str1 += when (position) {
+        string += when (position) {
             0 -> ""
             1 -> change[0]
             2 -> change[0] + change[0]
@@ -344,16 +344,16 @@ fun roman(n: Int): String {
             8 -> change[1] + change[0] + change[0] + change[0]
             else -> change[0] + change[2]
         }
-        str2 = str1 + str2
+        result = string + result
         x /= 10
         convert++
-        str1 = ""
+        string = ""
     }
     if (n / 1000 != 0) {
         for (g in 1..n / 1000)
-            str2 = "M" + str2
+            result = "M" + result
     }
-    return str2
+    return result
 }
 
 /**
@@ -364,8 +364,8 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var str1 = ""
-    var str2 = ""
+
+    var result = ""
     var units = mutableListOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь",
             "девять")
     val others = listOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
@@ -380,6 +380,7 @@ fun russian(n: Int): String {
     var convert = 0
     var k = 1
     while (position > 0) {
+        var string = ""
         if (k == 2) {
             change = dozens.toMutableList()
         }
@@ -387,13 +388,13 @@ fun russian(n: Int): String {
             change = hundreds.toMutableList()
         }
         convert = position % 10
-        str1 = change[convert]
+        string = change[convert]
         if (((n % 100) - (n % 10) == 10) and (k == 1)) {
-            str1 = others[(n % 100) - 10]
+            string = others[(n % 100) - 10]
             position /= 10
             k = 2
         }
-        thousands.add(str1)
+        thousands.add(string)
         position /= 10
         k++
     }
@@ -402,7 +403,7 @@ fun russian(n: Int): String {
         units[1] = "одна"
         units[2] = "две"
         change = units
-        str1 = ""
+        var string = ""
         k = 1
         when {
             position % 100 - position % 10 == 10 -> thousands.add("тысяч")
@@ -418,23 +419,23 @@ fun russian(n: Int): String {
                 change = hundreds.toMutableList()
             }
             convert = position % 10
-            str1 = change[convert]
+            string = change[convert]
             if (((position % 100) - (position % 10) == 10) && (k == 1)) {
-                str1 = others[(position % 100) - 10]
+                string = others[(position % 100) - 10]
                 position /= 10
                 k = 2
             }
-            thousands.add(str1)
+            thousands.add(string)
             position /= 10
             k++
         }
     }
     for (i in 0 until thousands.size) {
         if ((i == 0) || (thousands[i] == "")) {
-            str2 = thousands[i] + str2
+            result = thousands[i] + result
         } else {
-            str2 = thousands[i] + " " + str2
+            result = thousands[i] + " " + result
         }
     }
-    return str2.trim()
+    return result.trim()
 }
