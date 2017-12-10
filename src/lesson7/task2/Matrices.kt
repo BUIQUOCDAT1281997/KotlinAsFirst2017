@@ -108,22 +108,22 @@ fun generateRectangles(height: Int, width: Int): Matrix<Int> {
     var value = 1
     var a = 0
     var count = 0
-    while (count <= height * width) {
+    while (count < height * width) {
         for (i in a until width - a) {
             result[a, i] = value
             count++
         }
-        if (value >= height * width) break
+        if ( count>= height * width) break
         for (j in a + 1 until height - a) {
             result[j, width - a - 1] = value
             count++
         }
-        if (value >= height * width) break
+        if (count >= height * width) break
         for (i in width - 2 - a downTo a) {
             result[height - a - 1, i] = value
             count++
         }
-        if (value >= height * width) break
+        if (count >= height * width) break
         for (j in height - 2 - a downTo a + 1) {
             result[j, a] = value
             count++
