@@ -61,7 +61,7 @@ operator fun Matrix<Int>.plus(other: Matrix<Int>): Matrix<Int> {
  *  9  8  7  6
  */
 fun generateSpiral(height: Int, width: Int): Matrix<Int> {
-    val result = createMatrix(height, width, height * width)
+    val result = createMatrix(height, width, 0)
     var value = 0
     var a = 0
     while (value <= height * width) {
@@ -131,7 +131,17 @@ fun generateSnake(height: Int, width: Int): Matrix<Int> = TODO()
  * 4 5 6      8 5 2
  * 7 8 9      9 6 3
  */
-fun <E> rotate(matrix: Matrix<E>): Matrix<E> = TODO()
+fun <E> rotate(matrix: Matrix<E>): Matrix<E> {
+    if (matrix.height!=matrix.width) throw IllegalArgumentException("height != width")
+    if (matrix.height<=1) return matrix
+    val result = createMatrix(matrix.height, matrix.width, matrix[0,0])
+    for (i in 0 until matrix.width) {
+        for (j in 0 until matrix.height) {
+            result[i, j] = matrix[matrix.width-j-1, i]
+        }
+    }
+    return result
+}
 
 /**
  * Сложная
