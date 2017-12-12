@@ -206,8 +206,8 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
     if (circles.size < 2) throw IllegalArgumentException("")
     var pair = Pair(circles[0], circles[1])
     var dist = circles[0].distance(circles[1])
-    for (i in 0..circles.size - 2) {
-        for (k in i + 1..circles.size - 1) {
+    for (i in 0 until circles.size) {
+        for (k in i + 1 until circles.size) {
             if (circles[i].distance(circles[k]) < dist) {
                 dist = circles[i].distance(circles[k])
                 pair = Pair(circles[i], circles[k])
@@ -229,7 +229,7 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
 fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
     val x = bisectorByPoints(a, b)
     val y = bisectorByPoints(b, c)
-    return Circle(x.crossPoint(y), x.crossPoint(y).distance(a))
+    return Circle(y.crossPoint(x), y.crossPoint(x).distance(a))
 }
 
 /**

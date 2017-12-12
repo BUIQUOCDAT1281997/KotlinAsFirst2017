@@ -193,16 +193,7 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> = when (bishopMov
  * Пример: kingMoveNumber(Square(3, 1), Square(6, 3)) = 3.
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
-fun kingMoveNumber(start: Square, end: Square): Int {
-    val dx = start.column - end.column
-    val dy = start.row - end.row
-    return when {
-        !check(start) || !check(end) -> throw IllegalArgumentException("клетка некорректна")
-        bishopMoveNumber(start, end) == 1 -> Math.abs(dx)
-        rookMoveNumber(start, end) in 0..1 -> Math.abs(dx + dy)
-        else -> (Math.sqrt((sqr((dx).toDouble()) + sqr((dy).toDouble())) / 2)).toInt() + 1
-    }
-}
+fun kingMoveNumber(start: Square, end: Square): Int = TODO()
 
 /**
  * Сложная

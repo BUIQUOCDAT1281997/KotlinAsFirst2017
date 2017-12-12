@@ -73,9 +73,11 @@ fun dateStrToDigit(str: String): String {
     val p = str.split(" ")
     try {
         if (p.size != 3) return ""
-        if ((p[0].toInt() < 32) && (p[0].toInt() > 0) && (p[2].toInt() >= 0) && (list.indexOf(p[1]) != -1)) {
-            return String.format("%02d.%02d.%d", p[0].toInt(), list.indexOf(p[1]) + 1, p[2].toInt())
-        } else return ""
+        val day = p[0].toInt()
+        val year = p[2].toInt()
+        if (day in 1..31 && year >= 0 && list.indexOf(p[1]) != -1)
+            return String.format("%02d.%02d.%d", day, list.indexOf(p[1]) + 1, year)
+        else return ""
     } catch (e: NumberFormatException) {
         return ""
     }
@@ -92,9 +94,11 @@ fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
     if (parts.size != 3) return ""
     try {
-        if (parts[1].toInt() < 1 || parts[1].toInt() > 12) return ""
-        if (parts[0].toInt() < 32 && parts[0].toInt() > 0 && parts[2].toInt() >= 0) {
-            return String.format("%d %s %d", parts[0].toInt(), list[parts[1].toInt() - 1], parts[2].toInt())
+        val month = parts[1].toInt()
+        val day = parts[0].toInt()
+        val year = parts[2].toInt()
+        if (day in 1..31 && year >= 0 && month in 1..12) {
+            return String.format("%d %s %d", day, list[month - 1], year)
         } else return ""
     } catch (e: NumberFormatException) {
         return ""
@@ -114,19 +118,17 @@ fun dateDigitToStr(digital: String): String {
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    val list1 = phone.split(" ", "-", "(", ")")
-    val list2 = phone.split(" ", "-", "(", ")", "+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-    val check = mutableListOf<String>()
-    for (element in list2) {
-        if (element != "") check.add(element)
+    val list1 = phone.split(" ", "-", "(", ")").filter { it != "" }
+    try {
+        var result = ""
+        for (part in list1) {
+            if (part.toInt() >= 0)
+                result = result + part
+        }
+        return result
+    } catch (e: NumberFormatException) {
+        return ""
     }
-    if (check.isNotEmpty()) return ""
-    var kq = ""
-    for (part in list1) {
-        kq = kq + part
-    }
-    if ((kq.indexOf("+") != 0 && kq.indexOf("+") != -1) || (kq.length == 1 && kq.indexOf("+") != -1)) return ""
-    else return kq
 }
 
 /**
