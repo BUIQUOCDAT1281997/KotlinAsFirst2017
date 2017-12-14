@@ -1,5 +1,4 @@
 @file:Suppress("UNUSED_PARAMETER")
-
 package lesson8.task1
 
 import java.io.File
@@ -32,7 +31,8 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
                 if (word.length + currentLineLength >= lineLength) {
                     outputStream.newLine()
                     currentLineLength = 0
-                } else {
+                }
+                else {
                     outputStream.write(" ")
                     currentLineLength++
                 }
@@ -147,17 +147,21 @@ fun space(n: Int): String {
     for (i in 1..n) str += " "
     return str
 }
+fun formatLine ( line: String): String{
+    val list = line .split(" ").filter { it!="" }
+    return list.joinToString(" ")
+}
 
 fun alignFileByWidth(inputName: String, outputName: String) {
     val outputStream = File(outputName).bufferedWriter()
     var maxLength = 0
     for (line in File(inputName).readLines()) {
-        val length = line.trim().length
+        val length = formatLine(line).length
         if (length > maxLength)
             maxLength = length
     }
     for (line in File(inputName).readLines()) {
-        val line1 = line.trim()
+        val line1 = formatLine(line)
         if (line1.isEmpty()) {
             outputStream.newLine()
             continue
@@ -183,6 +187,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     }
     outputStream.close()
 }
+
 
 /**
  * Средняя
