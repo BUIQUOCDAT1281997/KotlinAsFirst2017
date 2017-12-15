@@ -2,14 +2,13 @@
 
 package lesson6.task2
 
-import lesson1.task1.sqr
 
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
  * Поэтому, обе координаты клетки (горизонталь row, вертикаль column) могут находиться в пределах от 1 до 8.
  * Горизонтали нумеруются снизу вверх, вертикали слева направо.
  */
-val strcolum = listOf("a", "b", "c", "d", "e", "f", "g", "h")
+val verticals = listOf("a", "b", "c", "d", "e", "f", "g", "h")
 
 data class Square(val column: Int, val row: Int) {
     /**
@@ -28,7 +27,7 @@ data class Square(val column: Int, val row: Int) {
      */
     fun notation(): String {
         if (column in 1..8 && row in 1..8) {
-            return strcolum[column - 1] + "$row"
+            return verticals[column - 1] + "$row"
         }
         return ""
     }
@@ -44,8 +43,9 @@ data class Square(val column: Int, val row: Int) {
 fun square(notation: String): Square {
     if (notation.length != 2) throw IllegalArgumentException("нотация некорректна")
     try {
-        val column = strcolum.indexOf(notation[0].toString()) + 1
-        val row = notation[1].toString().toInt()
+        val column = verticals.indexOf(notation[0].toString()) + 1
+        val a = notation[1].toString()
+        val row = a.toInt()
         if (column in 1..8 && row in 1..8) return Square(column, row)
         else throw IllegalArgumentException("нотация некорректна")
     } catch (e: NumberFormatException) {

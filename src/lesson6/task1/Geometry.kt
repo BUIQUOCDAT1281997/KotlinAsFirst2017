@@ -109,7 +109,7 @@ fun diameter(vararg points: Point): Segment {
     if (points.size < 2) throw IllegalArgumentException("")
     for (i in 0 until points.size) {
         for (k in i + 1 until points.size) {
-            var a = points[i].distance(points[k])
+            val a = points[i].distance(points[k])
             if (a > maxDistance) {
                 name = Segment(points[i], points[k])
                 maxDistance = a

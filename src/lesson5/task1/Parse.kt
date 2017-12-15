@@ -350,7 +350,7 @@ fun fromRoman(roman: String): Int {
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun findlocation(str: String, position: Int): Int {
+fun findlocationopen(str: String, position: Int): Int {
     var c = 1
     val list = mutableListOf<Int>()
     for (j in position + 1..str.length - 1) {
@@ -365,7 +365,7 @@ fun findlocation(str: String, position: Int): Int {
     return list[0]
 }
 
-fun findlocation2(str: String, position: Int): Int {
+fun findlocationclose(str: String, position: Int): Int {
     var c = 1
     val list = mutableListOf<Int>()
     for (j in position - 1 downTo 0) {
@@ -419,12 +419,12 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
                 count++
             }
             '[' -> {
-                if (list[position] == 0) index = findlocation(commands, index) - 1
+                if (list[position] == 0) index = findlocationopen(commands, index) - 1
                 else count++
             }
             ']' -> {
                 if (list[position] == 0) count++
-                else index = findlocation2(commands, index) - 1
+                else index = findlocationclose(commands, index) - 1
             }
             else -> throw IllegalArgumentException("")
         }
