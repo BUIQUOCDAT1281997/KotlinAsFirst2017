@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson8.task1
 
 import java.io.File
@@ -31,8 +32,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
                 if (word.length + currentLineLength >= lineLength) {
                     outputStream.newLine()
                     currentLineLength = 0
-                }
-                else {
+                } else {
                     outputStream.write(" ")
                     currentLineLength++
                 }
@@ -78,7 +78,24 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val outputStream = File(outputName).bufferedWriter()
+    val exception = listOf("жюри", "брошюра", "парашют")
+    val letter = listOf("Ж", "Ч", "Ш", "Щ", "ж", "ч", "ш", "щ")
+    val list = listOf("ы", "я", "ю", "Ы", "Я", "Ю", "и", "а", "у", "И", "А", "У")
+    for (line in File(inputName).readLines()) {
+        var b = line
+        for (i in 0 until letter.size) {
+            for (k in 0..5) {
+                val a = letter[i] + list[k]
+                if (a.toRegex().findAll(line).count() > 0 && exception.indexOf(line) == -1) {
+                    b = b.replace(a, letter[i] + list[k + 6])
+                }
+            }
+        }
+        outputStream.write(b)
+        outputStream.newLine()
+    }
+    outputStream.close()
 }
 
 /**
@@ -147,8 +164,9 @@ fun space(n: Int): String {
     for (i in 1..n) str += " "
     return str
 }
-fun formatLine ( line: String): String{
-    val list = line .split(" ").filter { it!="" }
+
+fun formatLine(line: String): String {
+    val list = line.split(" ").filter { it != "" }
     return list.joinToString(" ")
 }
 
@@ -203,7 +221,9 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+   TODO()
+}
 
 /**
  * Средняя
