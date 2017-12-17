@@ -175,6 +175,7 @@ class Tests {
     fun bisectorByPoints() {
         assertApproxEquals(Line(Point(2.0, 0.0), Math.PI / 2), bisectorByPoints(Point(0.0, 0.0), Point(4.0, 0.0)))
         assertApproxEquals(Line(Point(1.0, 2.0), 0.0), bisectorByPoints(Point(1.0, 5.0), Point(1.0, -1.0)))
+        assertApproxEquals(Line(Point(3.5, 3.5), 0.75*Math.PI), bisectorByPoints(Point(2.0, 2.0), Point(5.0, 5.0)))
     }
 
     @Test
